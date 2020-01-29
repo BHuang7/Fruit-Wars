@@ -176,6 +176,30 @@ rocket.prototype.draw = function () {
 		Entity.prototype.draw.call(this);
 }
 
+// inheritance 
+function ban(game, spritesheetArray) {
+	this.animation = new arrAnimation(spritesheetArray, .05, true, 1.5);
+    this.speed = 250;
+    this.ctx = game.ctx;
+    Entity.call(this, game, 0, 50);
+}
+
+ban.prototype = new Entity();
+ban.prototype.constructor = ban;
+
+ban.prototype.update = function () {
+    this.x += this.game.clockTick * this.speed;
+    if (this.x > 800) this.x = -230;
+    Entity.prototype.update.call(this);
+}
+
+ban.prototype.draw = function () {
+    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    Entity.prototype.draw.call(this);
+}
+
+
+
 function Terrain(game) {
     Entity.call(this, game, 0, 200);
     this.radius = 100;
@@ -231,6 +255,11 @@ Terrain.prototype.draw = function (ctx) {
     }
     ctx.fill();
 }
+AM.queueDownload("./img/explosion/bananaRunning.png");
+AM.queueDownload("./img/explosion/bananaRunning2.png");
+AM.queueDownload("./img/explosion/bananaRunning3.png");
+AM.queueDownload("./img/explosion/bananaRunning4.png");
+AM.queueDownload("./img/explosion/bananaRunning5.png");
 
 AM.queueDownload("./img/explosion/expl_07_0000.png");
 AM.queueDownload("./img/explosion/expl_07_0001.png");
@@ -312,6 +341,12 @@ AM.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();
+	var banArr = [];
+	banArr.push(AM.getAsset("./img/explosion/bananaRunning.png"));
+	banArr.push(AM.getAsset("./img/explosion/bananaRunning2.png"));
+	banArr.push(AM.getAsset("./img/explosion/bananaRunning3.png"));
+	banArr.push(AM.getAsset("./img/explosion/bananaRunning4.png"));
+	banArr.push(AM.getAsset("./img/explosion/bananaRunning5.png"));
 	var explosionArr = [];
 	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0000.png"));
 	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0001.png"));
@@ -391,6 +426,7 @@ AM.downloadAll(function () {
 	gameEngine.addEntity(new ninja(gameEngine, ninjaRun));
 	gameEngine.addEntity(new rocket(gameEngine, rocketArr));
 	gameEngine.addEntity(new tninja(gameEngine, tninjaArr));
+	gameEngine.addEntity(new ban(gameEngine, banArr));
 	gameEngine.addEntity(new explosion(gameEngine, explosionArr));
 
     console.log("All Done!");
