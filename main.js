@@ -255,83 +255,29 @@ Terrain.prototype.draw = function (ctx) {
     }
     ctx.fill();
 }
-AM.queueDownload("./img/explosion/bananaRunning.png");
-AM.queueDownload("./img/explosion/bananaRunning2.png");
-AM.queueDownload("./img/explosion/bananaRunning3.png");
-AM.queueDownload("./img/explosion/bananaRunning4.png");
-AM.queueDownload("./img/explosion/bananaRunning5.png");
 
-AM.queueDownload("./img/explosion/expl_07_0000.png");
-AM.queueDownload("./img/explosion/expl_07_0001.png");
-AM.queueDownload("./img/explosion/expl_07_0002.png");
-AM.queueDownload("./img/explosion/expl_07_0003.png");
-AM.queueDownload("./img/explosion/expl_07_0004.png");
-AM.queueDownload("./img/explosion/expl_07_0005.png");
-AM.queueDownload("./img/explosion/expl_07_0006.png");
-AM.queueDownload("./img/explosion/expl_07_0007.png");
-AM.queueDownload("./img/explosion/expl_07_0008.png");
-AM.queueDownload("./img/explosion/expl_07_0009.png");
-AM.queueDownload("./img/explosion/expl_07_0010.png");
-AM.queueDownload("./img/explosion/expl_07_0011.png");
-AM.queueDownload("./img/explosion/expl_07_0012.png");
-AM.queueDownload("./img/explosion/expl_07_0013.png");
-AM.queueDownload("./img/explosion/expl_07_0014.png");
-AM.queueDownload("./img/explosion/expl_07_0015.png");
-AM.queueDownload("./img/explosion/expl_07_0016.png");
-AM.queueDownload("./img/explosion/expl_07_0017.png");
-AM.queueDownload("./img/explosion/expl_07_0018.png");
-AM.queueDownload("./img/explosion/expl_07_0019.png");
-AM.queueDownload("./img/explosion/expl_07_0020.png");
-AM.queueDownload("./img/explosion/expl_07_0021.png");
-AM.queueDownload("./img/explosion/expl_07_0022.png");
-AM.queueDownload("./img/explosion/expl_07_0023.png");
-AM.queueDownload("./img/explosion/expl_07_0024.png");
-AM.queueDownload("./img/explosion/expl_07_0025.png");
-AM.queueDownload("./img/explosion/expl_07_0026.png");
-AM.queueDownload("./img/explosion/expl_07_0027.png");
-AM.queueDownload("./img/explosion/expl_07_0028.png");
-AM.queueDownload("./img/explosion/expl_07_0029.png");
-AM.queueDownload("./img/explosion/expl_07_0030.png");
-AM.queueDownload("./img/explosion/expl_07_0031.png");
+function downloadImage(path, numberOfImages) {
 
-AM.queueDownload("./img/ninja/Throw__000.png");
-AM.queueDownload("./img/ninja/Throw__001.png");
-AM.queueDownload("./img/ninja/Throw__002.png");
-AM.queueDownload("./img/ninja/Throw__003.png");
-AM.queueDownload("./img/ninja/Throw__004.png");
-AM.queueDownload("./img/ninja/Throw__005.png");
-AM.queueDownload("./img/ninja/Throw__006.png");
-AM.queueDownload("./img/ninja/Throw__007.png");
-AM.queueDownload("./img/ninja/Throw__008.png");
-AM.queueDownload("./img/ninja/Throw__009.png");
+		var fileName = path + ".png";
+		AM.queueDownload(fileName);
+		for (var i = 2; i <= numberOfImages; i++) {
+			fileName = path + i + ".png";
+			AM.queueDownload(fileName);
+		}
+}
 
-AM.queueDownload("./img/rocket/rocket_1_0000.png");
-AM.queueDownload("./img/rocket/rocket_1_0001.png");
-AM.queueDownload("./img/rocket/rocket_1_0002.png");
-AM.queueDownload("./img/rocket/rocket_1_0003.png");
-AM.queueDownload("./img/rocket/rocket_1_0004.png");
-AM.queueDownload("./img/rocket/rocket_1_0005.png");
-AM.queueDownload("./img/rocket/rocket_1_0006.png");
-AM.queueDownload("./img/rocket/rocket_1_0007.png");
-AM.queueDownload("./img/rocket/rocket_1_0008.png");
-AM.queueDownload("./img/rocket/rocket_1_0009.png");
-AM.queueDownload("./img/rocket/rocket_1_0010.png");
-AM.queueDownload("./img/rocket/rocket_1_0011.png");
-AM.queueDownload("./img/rocket/rocket_1_0012.png");
-AM.queueDownload("./img/rocket/rocket_1_0013.png");
-AM.queueDownload("./img/rocket/rocket_1_0014.png");
-AM.queueDownload("./img/rocket/rocket_1_0015.png");
+function assetToArray(path, numberOfImages, array) {
+	array.push(AM.getAsset(path + ".png"));
+	for (var i = 2; i <= numberOfImages; i++) {
+			array.push(AM.getAsset(path + i + ".png"));
+	}
+}
+downloadImage("./img/explosion/bananaRunning", 5);
+downloadImage("./img/explosion/expl_07_", 32);
+downloadImage("./img/ninja/Throw__", 10);
+downloadImage("./img/rocket/rocket_1_", 15);
+downloadImage("./img/ninja/Run__", 10);
 
-AM.queueDownload("./img/ninja/Run__000.png");
-AM.queueDownload("./img/ninja/Run__001.png");
-AM.queueDownload("./img/ninja/Run__002.png");
-AM.queueDownload("./img/ninja/Run__003.png");
-AM.queueDownload("./img/ninja/Run__004.png");
-AM.queueDownload("./img/ninja/Run__005.png");
-AM.queueDownload("./img/ninja/Run__006.png");
-AM.queueDownload("./img/ninja/Run__007.png");
-AM.queueDownload("./img/ninja/Run__008.png");
-AM.queueDownload("./img/ninja/Run__009.png");
 
 AM.queueDownload("./img/background0.png");
 
@@ -341,84 +287,24 @@ AM.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();
+	
 	var banArr = [];
-	banArr.push(AM.getAsset("./img/explosion/bananaRunning.png"));
-	banArr.push(AM.getAsset("./img/explosion/bananaRunning2.png"));
-	banArr.push(AM.getAsset("./img/explosion/bananaRunning3.png"));
-	banArr.push(AM.getAsset("./img/explosion/bananaRunning4.png"));
-	banArr.push(AM.getAsset("./img/explosion/bananaRunning5.png"));
+	assetToArray("./img/explosion/bananaRunning", 5, banArr);	
+	
 	var explosionArr = [];
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0000.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0001.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0002.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0003.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0004.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0005.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0006.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0007.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0008.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0009.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0010.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0011.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0012.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0013.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0014.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0015.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0016.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0017.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0018.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0019.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0020.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0021.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0022.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0023.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0024.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0025.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0026.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0027.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0028.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0029.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0030.png"));
-	explosionArr.push(AM.getAsset("./img/explosion/expl_07_0031.png"));
+	assetToArray("./img/explosion/expl_07_", 32, explosionArr);
+	
 	var tninjaArr = [];
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__000.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__001.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__002.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__003.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__004.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__005.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__006.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__007.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__008.png"));
-	tninjaArr.push(AM.getAsset("./img/ninja/Throw__009.png"));
+	assetToArray("./img/ninja/Throw__", 10, tninjaArr);
+	
 	var rocketArr = [];
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0000.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0001.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0002.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0003.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0004.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0005.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0006.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0007.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0008.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0009.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0010.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0011.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0012.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0013.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0014.png"));
-	rocketArr.push(AM.getAsset("./img/rocket/rocket_1_0015.png"));
+	assetToArray("./img/rocket/rocket_1_", 15, rocketArr);
+
+
 	var ninjaRun = [];
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__000.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__001.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__002.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__003.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__004.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__005.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__006.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__007.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__008.png"));
-	ninjaRun.push(AM.getAsset("./img/ninja/Run__009.png"));
+	assetToArray("./img/ninja/Run__", 10, ninjaRun);
+	
+	
 	var ground = new Terrain(gameEngine);
 	ground.coordinates = Terrain.generate(50, 500, 50);
 	gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/background0.png")));
