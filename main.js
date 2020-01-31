@@ -199,26 +199,23 @@ ban.prototype.draw = function () {
 }
 
 function downloadImage(path, numberOfImages) {
-
-		var fileName = path + ".png";
-		AM.queueDownload(fileName);
-		for (var i = 2; i <= numberOfImages; i++) {
-			fileName = path + i + ".png";
+	
+		for (var i = 1; i <= numberOfImages; i++) {
+			fileName = path + " (" + i  + ")"+ ".png";
 			AM.queueDownload(fileName);
 		}
 }
 
 function assetToArray(path, numberOfImages, array) {
-	array.push(AM.getAsset(path + ".png"));
-	for (var i = 2; i <= numberOfImages; i++) {
-			array.push(AM.getAsset(path + i + ".png"));
+	for (var i = 1; i <= numberOfImages; i++) {
+			array.push(AM.getAsset(path + " (" + i  + ")"+ ".png"));
 	}
 }
 downloadImage("./img/explosion/bananaRunning", 5);
-downloadImage("./img/explosion/expl_07_", 32);
-downloadImage("./img/ninja/Throw__", 10);
-downloadImage("./img/rocket/rocket_1_", 15);
-downloadImage("./img/ninja/Run__", 10);
+downloadImage("./img/explosion/explosion", 32);
+downloadImage("./img/ninja/Ninja_Throw", 10);
+downloadImage("./img/rocket/rocket", 15);
+downloadImage("./img/ninja/Ninja_Run", 10);
 
 
 AM.queueDownload("./img/background0.png");
@@ -234,17 +231,17 @@ AM.downloadAll(function () {
 	assetToArray("./img/explosion/bananaRunning", 5, banArr);	
 	
 	var explosionArr = [];
-	assetToArray("./img/explosion/expl_07_", 32, explosionArr);
+	assetToArray("./img/explosion/explosion", 32, explosionArr);
 	
 	var tninjaArr = [];
-	assetToArray("./img/ninja/Throw__", 10, tninjaArr);
+	assetToArray("./img/ninja/Ninja_Throw", 10, tninjaArr);
 	
 	var rocketArr = [];
-	assetToArray("./img/rocket/rocket_1_", 15, rocketArr);
+	assetToArray("./img/rocket/rocket", 15, rocketArr);
 
 
 	var ninjaRun = [];
-	assetToArray("./img/ninja/Run__", 10, ninjaRun);
+	assetToArray("./img/ninja/Ninja_Run", 10, ninjaRun);
 	
 	
 	var ground = new Terrain(gameEngine);
