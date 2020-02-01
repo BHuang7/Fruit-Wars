@@ -1,3 +1,5 @@
+downloadImage("./img/ninja/Ninja_Idle", 10);
+downloadImage("./img/ninja/Ninja_Left", 10);
 downloadImage("./img/explosion/bananaRunning", 5);
 downloadImage("./img/explosion/explosion", 32);
 downloadImage("./img/ninja/Ninja_Throw", 10);
@@ -21,13 +23,16 @@ AM.downloadAll(function () {
 	assetToArray("./img/rocket/rocket", 15, rocketArr);
 	var ninjaRun = [];
 	assetToArray("./img/ninja/Ninja_Run", 10, ninjaRun);
+	var ninjaIdle = [];
+	assetToArray("./img/ninja/Ninja_Idle", 10, ninjaIdle);
+	var ninjaRunLeft = [];
+	assetToArray("./img/ninja/Ninja_Left", 10, ninjaRunLeft);
 	var ground = new Terrain(gameEngine);
 	ground.coordinates = ground.generate(50, 500, 50);
 	gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/background0.png")));
 	gameEngine.addEntity(ground);
-	gameEngine.addEntity(new ninja(gameEngine, ninjaRun));
+	gameEngine.addEntity(new ninja(gameEngine,ninjaIdle, ninjaRun, ninjaRunLeft, tninjaArr));
 	gameEngine.addEntity(new rocket(gameEngine, rocketArr));
-	gameEngine.addEntity(new tninja(gameEngine, tninjaArr));
 	gameEngine.addEntity(new ban(gameEngine, banArr));
 	gameEngine.addEntity(new explosion(gameEngine, explosionArr));
     console.log("All Done!");
