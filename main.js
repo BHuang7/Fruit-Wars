@@ -5,7 +5,9 @@ downloadImage("./img/explosion/explosion", 32);
 downloadImage("./img/ninja/Ninja_Throw", 10);
 downloadImage("./img/rocket/rocket", 15);
 downloadImage("./img/ninja/Ninja_Run", 10);
-AM.queueDownload("./img/background0.png");
+AM.queueDownload("./img/background/background_1.png");
+AM.queueDownload("./img/background/background_2.png");
+AM.queueDownload("./img/background/background_3.png");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
@@ -29,7 +31,11 @@ AM.downloadAll(function () {
 	assetToArray("./img/ninja/Ninja_Left", 10, ninjaRunLeft);
 	var ground = new Terrain(gameEngine);
 	ground.coordinates = ground.generate(50, 500, 50);
-	gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/background0.png")));
+
+	// Array of all backgrounds
+	var backgroundArray = [AM.getAsset("./img/background/background_1.png"), AM.getAsset("./img/background/background_2.png"), AM.getAsset("./img/background/background_3.png")]
+	gameEngine.addEntity(new Background(gameEngine, backgroundArray));
+	
 	gameEngine.addEntity(ground);
 	gameEngine.addEntity(new ninja(gameEngine,ninjaIdle, ninjaRun, ninjaRunLeft, tninjaArr));
 	gameEngine.addEntity(new rocket(gameEngine, rocketArr));
