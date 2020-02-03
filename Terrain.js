@@ -19,11 +19,11 @@ Terrain.prototype.generate = function (points, groundLevel, yVariance) {
     coordinates.push([0, height]);
     for(let i = 0; i < points; i++) {
         coordinates.push([x, y]);
-        console.log("x: " + coordinates[i][0] + ", y: " + coordinates[i][1]);
+        //console.log("x: " + coordinates[i][0] + ", y: " + coordinates[i][1]);
         oldx = x;
         x += Math.random() * xVariance;
         var rand = Math.random() * 100;
-        console.log("random: " + rand);
+        //console.log("random: " + rand);
         y = Math.floor(rand) % 2 ? y +  Math.random() * yVariance : y -  Math.random() * xVariance;
         if(y > height)
             y = y % height + groundLevel;
@@ -45,7 +45,10 @@ Terrain.prototype.update = function () {
 }
 
 Terrain.prototype.draw = function (ctx) {
-    ctx.fillStyle = "Peru";
+    let texture = new Image();
+    texture.src = "./img/terrain/dirt.jpg";
+    let pattern = ctx.createPattern(texture, "repeat");
+    ctx.fillStyle = pattern;
 
     ctx.beginPath();
     ctx.moveTo(0, 700);
