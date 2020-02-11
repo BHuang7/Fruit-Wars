@@ -1,9 +1,11 @@
 // inheritance 
-function explosion(game, spritesheetArray) {
-	this.animation = new arrAnimation(spritesheetArray, .02, true, 2);
+function explosion(game, coordX, coordY) {
+	var explosionArr = [];
+	assetToArray("./img/explosion/explosion", 32, explosionArr);
+	this.animation = new arrAnimation(explosionArr, .02, false, 2, false);
     this.speed = 0;
     this.ctx = game.ctx;
-    Entity.call(this, game, 720, 458);
+    Entity.call(this, game, coordX, coordY);
 }
 
 explosion.prototype = new Entity();
@@ -11,7 +13,6 @@ explosion.prototype.constructor = explosion;
 
 explosion.prototype.update = function () {
     this.x += this.game.clockTick * this.speed;
-    if (this.x > 800) this.x = -230;
     Entity.prototype.update.call(this);
 }
 

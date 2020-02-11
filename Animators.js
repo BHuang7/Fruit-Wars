@@ -1,5 +1,6 @@
 var AM = new AssetManager();
-function arrAnimation(spritesArray, frameDuration, loop, scale){
+function arrAnimation(spritesArray, frameDuration, loop, scale, holdLast){
+	this.holdLast = holdLast;
 	this.spritesArray = spritesArray;
 	this.frameDuration = frameDuration;
 	this.loop = loop;
@@ -10,8 +11,13 @@ function arrAnimation(spritesArray, frameDuration, loop, scale){
 
 arrAnimation.prototype.drawFrame = function (tick, ctx, x, y) {
 	this.elapsedTime += tick;
-    if (this.isDone()) {
-        if (this.loop) this.elapsedTime = 0;
+	if (this.loop) {
+        if (this.isDone()) {
+			if (this.holdLast) this.elapsedTime -= this.frameDuration;
+            else {this.elapsedTime = 0;}
+        }
+    } else if (this.isDone()) {
+        return;
     }
     var frame = this.currentFrame();
 	var image = this.spritesArray[frame];

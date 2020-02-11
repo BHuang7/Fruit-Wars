@@ -1,8 +1,8 @@
 // inheritance 
 function ninja(game, spritesheetArrayIdle, spritesheetArrayRunRight, spritesheetArrayRunLeft) {
-	this.animationIdle = new arrAnimation(spritesheetArrayIdle, .1, true, .25, "Idle");
-	this.animationRunningRight = new arrAnimation(spritesheetArrayRunRight, .01, true, .25, "Running Right");
-	this.animationRunningLeft = new arrAnimation(spritesheetArrayRunLeft, .01, true, .25, "Running Left");
+	this.animationIdle = new arrAnimation(spritesheetArrayIdle, .1, true, .25, false);
+	this.animationRunningRight = new arrAnimation(spritesheetArrayRunRight, .01, true, .25, false);
+	this.animationRunningLeft = new arrAnimation(spritesheetArrayRunLeft, .01, true, .25, false);
 	this.runRight = false;
 	this.runLeft = false;
 	this.throwing = false;
@@ -17,6 +17,9 @@ ninja.prototype.constructor = ninja;
 
 ninja.prototype.update = function () {
 	this.speed = 0;
+	if (this.game.click){
+		this.game.addEntity(new rocket(this.game,this.x, this.y, this.game.xVal - this.x, this.game.yVal - this.y));
+	}
 	if (this.game.a){
 		this.runLeft = true;
 	}
