@@ -46,3 +46,71 @@ function inteceptCircleLineSeg(center, radius, p1, p2){
 	
 	return false;
 }
+
+function distance(a, b) {
+    var dx = a.x - b.x;
+    var dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+// check if a circle intersects with a line segment
+// it will return an array containing the points at which the collisions occur
+// circle: (x - circleX)^2 + (y - circleY)^2 = radius^2
+// line: y = m * x + yIntercept
+function lineCircleCollision(radius, circleCenter, line) {
+    //first check if segment is completely inside circle
+    if(distance(line.p1, circleCenter) <= radius && distance(line.p2, circleCenter) <= radius) {
+        return ["inside"];
+    }
+
+    // get a, b, c values for the quadratic formula
+    var a = 1 + line.slope * line.slope;
+    var b = -circleCenter.x * 2 + (line.slope * (line.intercept - circleCenter.y)) * 2;
+    var c = circleCenter.x * circleCenter.x + Math.pow((line.intercept - circleCenter.y), 2) - radius * radius;
+
+    // get discriminant
+    var d = b * b - 4 * a * c;
+    if (d >= 0) {
+        // insert into quadratic formula
+    var x1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+    var x2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        var intersections = [
+            {x: x1, y: line.getY(x1)},
+            {x: x2, y: line.getY(x2)}
+        ];
+        
+        if (d == 0) {
+            // only 1 intersection
+            if (distance(line.p1, circleCenter) <= radius || distance(line.p2, circleCenter) <= radius) {
+                return [intersections[0], "point inside"]
+            } else {
+                return [intersections[0]];
+            }
+        }
+
+        //next I need to check whether the points are actually on the line segment
+        firstIntersection = intersections[0];
+        secondIntersection = intersections[1];
+        //for each intersection, add the distance from the intersection to each endpoint of the line segment
+        l1 = Math.abs(distance(firstIntersection, line.p1) + distance(firstIntersection, line.p2));
+        l2 = Math.abs(distance(secondIntersection, line.p1) + distance(secondIntersection, line.p2));
+        console.log("length: " + line.length + ", l1: " + l1 + ", l2: " + l2);
+        //check first intersection is off the line segment
+        if(l1 > line.length) {
+            //check if the other intersection is off the line segment as well
+            if(l2 > line.length){
+                return[];
+            }
+            return [intersections[1]];
+        } 
+        //check if only the second intersection is off the line segment
+        else if(l2 > line.length) {
+            return [intersections[0]];
+        }
+        //console.log("intersects");
+        return intersections;
+    }
+    // no intersection
+    //console.log("no intersection");
+    return [];
+}
