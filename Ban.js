@@ -1,20 +1,27 @@
-function ban(game, spritesheetArray) {
-	this.scalingFactor = 1.1;
-	this.animation = new arrAnimation(spritesheetArray, .05, true, 1.5, true);
+function ban(game, spritesheetArray, terrain) {
+	this.scalingFactor = .5;
+	this.animation = new arrAnimation(spritesheetArray, .05, true, this.scalingFactor, true);
     this.speed = 250;
-	this.CollisionCicle = new CollisionCircle(this, 100, 100, 85);
-    this.ctx = game.ctx;
 	this.height = spritesheetArray[0].height;
 	this.width = spritesheetArray[0].width;
-    Entity.call(this, game, 0, 50);
+	this.radius = this.calculateBoundingCircleRadius();
+	this.CollisionCicle = new CollisionCircle(this, this.radius, this.scalingFactor, terrain);
+    this.ctx = game.ctx;
+	this.terrain = terrain;
+	this.veloctiy = 0;
+	this.gravity = 10;
+	this.collision = false;
+    Entity.call(this, game, 100, 50);
 }
 
 ban.prototype = new Entity();
 ban.prototype.constructor = ban;
 
 ban.prototype.update = function () {
-    this.x += this.game.clockTick * this.speed;
-    if (this.x > 800) this.x = -230;
+	if (!this.collision) {
+		this.y += this.game.clockTick * this.speed;
+	}
+    if (this.y > 800) this.y = -230;
     Entity.prototype.update.call(this);
 }
 
