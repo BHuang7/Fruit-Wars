@@ -16,7 +16,10 @@ function findPerpLineSeg(centerPoint, lineSegment) {
 	var slope = -1* (1/lineSegment.slope);
 	var intercept = centerPoint.y - (centerPoint.x * slope);
 	var intPoint = findIntersection(slope, intercept, lineSegment.slope, lineSegment.intercept);
-	return {x:centerPoint.x - intPoint.x,y: centerPoint.y - intPoint.y};
+	if(slope < 0){
+		return {x:centerPoint.x - intPoint.x,y: centerPoint.y - intPoint.y};
+	}
+	return {x: intPoint.x - centerPoint.x ,y: intPoint.y - centerPoint.y};
 };
 
 function findIntersection(slope1, intercept1, slope2, intercept2) {
@@ -57,7 +60,7 @@ function inteceptCircleLineSeg(center, radius, p1, p2){
         retP2.y = p1.y + v1.y * u2;
         ret[ret.length] = retP2;
     }       
-    if (ret.length >= 1) return true;
+    if (ret.length >= 1) return ret;
 	
 	return false;
 }
