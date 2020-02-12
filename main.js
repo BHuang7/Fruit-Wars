@@ -38,6 +38,6 @@ AM.downloadAll(function () {
 	
 	gameEngine.addEntity(ground);
 	gameEngine.addEntity(new ninja(gameEngine,ninjaIdle, ninjaRun, ninjaRunLeft, tninjaArr));
-	gameEngine.addEntity(new ban(gameEngine, banArr));
+	gameEngine.addEntity(new ban(gameEngine, banArr, ground));
     console.log("All Done!");
 });
