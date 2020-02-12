@@ -37,6 +37,7 @@ function GameEngine() {
     this.wheel = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
+	this.gravity = 1;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -99,7 +100,23 @@ GameEngine.prototype.draw = function () {
 
 GameEngine.prototype.update = function () {
     var entitiesCount = this.entities.length;
-
+	
+	for (var i = 0; i < entitiesCount; i++) {
+		if (entitiesCount != 0) {
+			var entity = this.entities[i];
+			if (entity.velocity != undefined) {
+				entity.velocity.y += this.gravity;
+			}
+			if (entity.collision != undefined) {
+				if (entity.collision) {
+					//entity.velocity.y = 0;
+					
+				}
+			
+			}
+		}
+	}
+	
     for (var i = 0; i < entitiesCount; i++) {
         var entity = this.entities[i];
 
@@ -133,6 +150,7 @@ function Entity(game, x, y) {
 }
 
 Entity.prototype.update = function () {
+	
 }
 
 Entity.prototype.draw = function (ctx) {

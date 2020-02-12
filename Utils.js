@@ -12,6 +12,24 @@ function assetToArray(path, numberOfImages, array) {
 	}
 }
 
+function findPerpLineSeg(centerPoint, lineSegment) {
+	var slope = -1* (1/lineSegment.slope);
+	var intercept = centerPoint.y - (centerPoint.x * slope);
+	var intPoint = findIntersection(slope, intercept, lineSegment.slope, lineSegment.intercept);
+	if(slope < 0){
+		return {x:centerPoint.x - intPoint.x,y: centerPoint.y - intPoint.y};
+	}
+	return {x: intPoint.x - centerPoint.x ,y: intPoint.y - centerPoint.y};
+};
+
+function findIntersection(slope1, intercept1, slope2, intercept2) {
+	var xVal = slope1 - slope2;
+	var intVal = intercept1 - intercept2;
+	var xFinal = (-1 * intVal) / xVal;
+	var yFinal = (slope1 * xFinal) + intercept1
+	return {x:xFinal, y:yFinal};
+};
+
 function inteceptCircleLineSeg(center, radius, p1, p2){
     var a, b, c, d, u1, u2, ret, retP1, retP2, v1, v2;
     v1 = {};
@@ -42,7 +60,7 @@ function inteceptCircleLineSeg(center, radius, p1, p2){
         retP2.y = p1.y + v1.y * u2;
         ret[ret.length] = retP2;
     }       
-    if (ret.length >= 1) return true;
+    if (ret.length >= 1) return ret;
 	
 	return false;
 }
