@@ -56,15 +56,12 @@ ninja.prototype.update = function () {
 
 ninja.prototype.draw = function () {
 	if (this.runLeft) {
-		console.log("run left");
         this.animationRunningLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
 	else if (this.runRight) {
-		console.log("run right");
         this.animationRunningRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
     else {
-		console.log("idle");
         this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
     Entity.prototype.draw.call(this);
