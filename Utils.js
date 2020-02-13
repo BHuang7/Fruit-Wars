@@ -12,14 +12,31 @@ function assetToArray(path, numberOfImages, array) {
 	}
 }
 
-function findPerpLineSeg(centerPoint, lineSegment) {
+function findPerpLineSeg(centerPoint, radius, lineSegment) {
+	//Slope of Perpendicular Line
 	var slope = -1* (1/lineSegment.slope);
+	//Point where the perpendicular Line intersects y-axis (b)
 	var intercept = centerPoint.y - (centerPoint.x * slope);
+	//Point where the perpendicular Line meets the line segment
 	var intPoint = findIntersection(slope, intercept, lineSegment.slope, lineSegment.intercept);
-	if(slope < 0){
-		return {x:centerPoint.x - intPoint.x,y: centerPoint.y - intPoint.y};
+	//Distance that the slope travels
+	var hypot = Math.sqrt((slope * slope)  + 1)
+	//Divide the rise and the run by the distance you travel
+	var unitVect = {x:1/hypot,y:slope/hypot};
+	//Distance from the center to the interception point
+	var centerToIntDist = Math.sqrt(((centerPoint.x - intPoint.x)*(centerPoint.x - intPoint.x))
+	+ ((centerPoint.y - intPoint.y)*(centerPoint.y - intPoint.y)));
+	//how much we are going to shift by
+	if((slope < 0 && centerPoint.x > intPoint.x)||(slope > 0 && centerPoint.x < intPoint.x)){
+		//In case your center is inside of the line
+		var shiftDistance = radius + centerToIntDist;
 	}
-	return {x: intPoint.x - centerPoint.x ,y: intPoint.y - centerPoint.y};
+	else{
+		var shiftDistance = radius - centerToIntDist;
+	}
+	
+	//multiplying how much we are going to shift by how far we need to shift
+	return {x: unitVect.x*shiftDistance,y: unitVect.y*shiftDistance};
 };
 
 function findIntersection(slope1, intercept1, slope2, intercept2) {
