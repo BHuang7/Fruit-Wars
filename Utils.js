@@ -27,15 +27,18 @@ function findPerpLineSeg(centerPoint, radius, lineSegment) {
 	var centerToIntDist = Math.sqrt(((centerPoint.x - intPoint.x)*(centerPoint.x - intPoint.x))
 	+ ((centerPoint.y - intPoint.y)*(centerPoint.y - intPoint.y)));
 	//how much we are going to shift by
-	if((slope < 0 && centerPoint.x > intPoint.x)||(slope > 0 && centerPoint.x < intPoint.x)){
+	if((lineSegment.slope , 0 && centerPoint.x > intPoint.x)||(lineSegment.slope > 0 && centerPoint.x < intPoint.x)){
+		console.log("went too far");
 		//In case your center is inside of the line
 		var shiftDistance = radius + centerToIntDist;
 	}
 	else{
 		var shiftDistance = radius - centerToIntDist;
 	}
-	
 	//multiplying how much we are going to shift by how far we need to shift
+	if(lineSegment.slope <0){
+		return {x: unitVect.x*shiftDistance * -1,y: unitVect.y*shiftDistance * -1};
+	}
 	return {x: unitVect.x*shiftDistance,y: unitVect.y*shiftDistance};
 };
 
