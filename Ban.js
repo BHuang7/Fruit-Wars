@@ -26,9 +26,10 @@ ban.prototype.update = function () {
 	this.velocity.x = 0;
 	if (this.oneIntercept && this.collision) {
 		this.velocity.y = 0;
+		console.log("One-Intercept");	
 	} else if (!this.oneIntercept && this.collision) {
 		var lineSegment = new LineSegment(this.game, this.CollisionCicle.interceptionPoints[0], this.CollisionCicle.interceptionPoints[1]);
-		var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius,lineSegment);
+		var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20,lineSegment);
 		this.x += temp.x;
 		this.y += temp.y;
 		this.velocity.y = 0;

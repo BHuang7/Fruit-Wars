@@ -27,9 +27,9 @@ CollisionCircle.prototype.debugDraw = function() {
 	}
 	// console.log("debugDraw")
 	//Transparent colliding circle
-	this.sprite.ctx.fillStyle = 'rgba(0, 0, 200, 0)'
+	//this.sprite.ctx.fillStyle = 'rgba(0, 0, 200, 0)'
 	//Visualized Colliding Circle
-	//this.sprite.ctx.fillStyle = 'rgba(255, 255, 255, 255)'
+	this.sprite.ctx.fillStyle = 'rgba(255, 255, 255, 255)'
 	this.sprite.ctx.beginPath();
 	this.sprite.ctx.arc(centerX, centerY, this.radius * this.scale - 20 , 2 * Math.PI, false);
 	this.sprite.ctx.fill();
