@@ -24,11 +24,15 @@ ban.prototype.constructor = ban;
 
 ban.prototype.update = function () {
 	this.velocity.x = 0;
-	console.log(this.x + " " + this.y);
 	if (this.oneIntercept && this.collision) {
-		this.velocity.y = 0;
-		console.log(this.CollisionCicle.lineSeg);
-		//console.log("One-Intercept");	
+		if (distance(this.CollisionCicle.lineSeg.p1, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)
+			|| distance(this.CollisionCicle.lineSeg.p2, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)) {
+			var lineSegment2 = new LineSegment(this.game, this.CollisionCicle.lineSeg.p1, this.CollisionCicle.lineSeg.p2);
+			var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20,lineSegment2);
+			this.x += temp.x;
+			this.y += temp.y;
+			this.velocity.y = 0;
+		}
 	} else if (!this.oneIntercept && this.collision) {
 		var lineSegment = new LineSegment(this.game, this.CollisionCicle.interceptionPoints[0], this.CollisionCicle.interceptionPoints[1]);
 		var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20,lineSegment);

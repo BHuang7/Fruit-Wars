@@ -9,7 +9,6 @@ function CollisionCircle(sprite, radius, scale, terrain) {
 
 
 CollisionCircle.prototype.debugDraw = function() {
-	this.lineSeg = [];
 	this.sprite.collision = false;
 	this.sprite.oneIntercept = false;
 	let centerX = this.sprite.x + (this.radius * this.scale) - 15;
@@ -20,8 +19,8 @@ CollisionCircle.prototype.debugDraw = function() {
 		var pointTwo = {x:  this.terrain.coordinates[i + 1][0], y: this.terrain.coordinates[i + 1][1]};
 		if (inteceptCircleLineSeg(this.circleCenter, this.radius * this.scale - 20, pointOne, pointTwo).length >= 1) {
 			if (inteceptCircleLineSeg(this.circleCenter, this.radius * this.scale - 20, pointOne, pointTwo).length == 1) {
+				this.lineSeg = {p1:pointOne, p2:pointTwo};
 				this.sprite.oneIntercept = true;
-				this.lineSeg.push({p1 : pointOne, p2 : pointTwo});
 			}
 			this.interceptionPoints = inteceptCircleLineSeg(this.circleCenter, this.radius * this.scale - 20, pointOne, pointTwo);
 			this.sprite.collision = true;
