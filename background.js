@@ -2,14 +2,13 @@
  * Background initializes the background entity
  * 
  * @param {the game engine} game 
- * @param {the sprites image array} spritesheetArray 
+ * @param {the image we want displayed in the background} backgroundImage 
  */
-function Background(game, spritesheetArray) {
+function Background(game, backgroundImage) {
     this.x = 0;
     this.y = 0;
     // Randomly select a value from sprites array 
-    var randomValue = Math.floor(Math.random() * spritesheetArray.length);
-    this.spritesheet = spritesheetArray[randomValue];
+    this.spritesheet = backgroundImage;
     this.game = game;
     this.ctx = game.ctx;
 };

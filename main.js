@@ -5,6 +5,9 @@ downloadImage("./img/explosion/explosion", 32);
 downloadImage("./img/ninja/Ninja_Throw", 10);
 downloadImage("./img/rocket/rocket", 15);
 downloadImage("./img/ninja/Ninja_Run", 10);
+AM.queueDownload("./img/terrain/dirt.jpg");
+AM.queueDownload("./img/terrain/red_dirt.jpg")
+AM.queueDownload("./img/terrain/purple_dirt.jpg")
 AM.queueDownload("./img/background/background_1.png");
 AM.queueDownload("./img/background/background_2.png");
 AM.queueDownload("./img/background/background_3.png");
@@ -29,12 +32,16 @@ AM.downloadAll(function () {
 	assetToArray("./img/ninja/Ninja_Idle", 10, ninjaIdle);
 	var ninjaRunLeft = [];
 	assetToArray("./img/ninja/Ninja_Left", 10, ninjaRunLeft);
-	var ground = new Terrain(gameEngine);
+
+	//Array of all foregrounds
+	var foregroundArray = [AM.getAsset("./img/terrain/red_dirt.jpg"), AM.getAsset("./img/terrain/dirt.jpg"), AM.getAsset("./img/terrain/purple_dirt.jpg")];
+	var levelSelect = Math.floor(Math.random() * foregroundArray.length);
+	var ground = new Terrain(gameEngine, foregroundArray[levelSelect]);
 	ground.coordinates = ground.generate(50, 500, 50);
 
 	// Array of all backgrounds
-	var backgroundArray = [AM.getAsset("./img/background/background_1.png"), AM.getAsset("./img/background/background_2.png"), AM.getAsset("./img/background/background_3.png")]
-	gameEngine.addEntity(new Background(gameEngine, backgroundArray));
+	var backgroundArray = [AM.getAsset("./img/background/background_1.png"), AM.getAsset("./img/background/background_2.png"), AM.getAsset("./img/background/background_3.png")];
+	gameEngine.addEntity(new Background(gameEngine, backgroundArray[levelSelect]));
 	
 	gameEngine.addEntity(ground);
 	gameEngine.addEntity(new ninja(gameEngine,ninjaIdle, ninjaRun, ninjaRunLeft, tninjaArr));
