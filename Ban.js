@@ -1,27 +1,79 @@
 function ban(game, spritesheetArray, terrain) {
+	this.game = game;
 	this.scalingFactor = .5;
 	this.animation = new arrAnimation(spritesheetArray, .05, true, this.scalingFactor, true);
-    this.speed = 250;
+    this.speed = 0;
 	this.height = spritesheetArray[0].height;
 	this.width = spritesheetArray[0].width;
 	this.radius = this.calculateBoundingCircleRadius();
 	this.CollisionCicle = new CollisionCircle(this, this.radius, this.scalingFactor, terrain);
     this.ctx = game.ctx;
+	this.velocity = {x: 0, y: 0};
 	this.terrain = terrain;
-	this.veloctiy = 0;
+	this.collision = false;	
+	this.runRight = false;
+	this.runLeft = false;
 	this.gravity = 10;
-	this.collision = false;
-    Entity.call(this, game, 100, 50);
+	this.oneIntercept = false;
+    Entity.call(this, game, 100, 250);
 }
+
 
 ban.prototype = new Entity();
 ban.prototype.constructor = ban;
 
 ban.prototype.update = function () {
-	if (!this.collision) {
-		this.y += this.game.clockTick * this.speed;
+	this.velocity.x = 0;
+	if (this.oneIntercept && this.collision) {
+		if (distance(this.CollisionCicle.lineSeg.p1, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)
+			|| distance(this.CollisionCicle.lineSeg.p2, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)) {
+			var lineSegment2 = new LineSegment(this.game, this.CollisionCicle.lineSeg.p1, this.CollisionCicle.lineSeg.p2);
+			var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20,lineSegment2);
+			this.x += temp.x;
+			this.y += temp.y;
+			this.velocity.y = 0;
+		}
+	} else if (!this.oneIntercept && this.collision) {
+		var lineSegment = new LineSegment(this.game, this.CollisionCicle.interceptionPoints[0], this.CollisionCicle.interceptionPoints[1]);
+		var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20,lineSegment);
+		this.x += temp.x;
+		this.y += temp.y;
+		this.velocity.y = 0;
+		// console.log(temp);
+		//console.log(this.CollisionCicle.interceptionPoints);
 	}
-    if (this.y > 800) this.y = -230;
+	if (this.game.a){
+		this.runLeft = true;
+	}
+	
+	if (this.game.d){ 
+		this.runRight = true;
+	}
+	if(this.game.a === false){
+		this.runLeft = false;
+	}
+	if(this.game.d === false) {
+		this.runRight = false;
+	}
+	if (this.runLeft) {
+		this.velocity.x = -100;
+        if (this.animation.isDone()) {
+            this.animation.elapsedTime = 0;
+			this.runLeft = false;
+        }
+	}
+	if (this.runRight) {
+		this.velocity.x  = 100;
+        if (this.animation.isDone()) {
+            this.animation.elapsedTime = 0;
+			this.runRight = false;
+            
+        }
+	}
+    if (this.x > 800) this.x = -230;
+	if (this.y > 800) this.y = -230;
+	this.x += this.game.clockTick * this.velocity.x;
+	this.y += this.game.clockTick * this.velocity.y;
     Entity.prototype.update.call(this);
 }
 
