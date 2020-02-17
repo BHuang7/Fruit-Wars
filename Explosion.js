@@ -1,8 +1,6 @@
 // inheritance 
 function explosion(game, coordX, coordY) {
-	var explosionArr = [];
-	assetToArray("./img/explosion/explosion", 32, explosionArr);
-	this.animation = new arrAnimation(explosionArr, .02, false, 2, false);
+	this.animation = new Animation(AM.getAsset("./img/explosion/explosion.png"), 32, 32, 32, .02, 32, false, 2, false);
     this.speed = 0;
     this.ctx = game.ctx;
     Entity.call(this, game, coordX, coordY);

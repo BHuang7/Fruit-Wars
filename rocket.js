@@ -1,11 +1,8 @@
-function rocket(game,startX, startY, velocityX, velocityY) {
-	var rocketArr = [];
-	assetToArray("./img/rocket/rocket", 9, rocketArr);
-	this.animation = new arrAnimation(rocketArr, .05, true, 3);
+function rocket(game,startX, startY, velocityX, velocityY) {	
+	this.animation = new Animation(AM.getAsset("./img/rocket/projectile1.png"), 32, 32, 9, .05, 9, true, 1, false);
     this.speed = velocityX;
 	this.ySpeed = velocityY;
     this.ctx = game.ctx;
-	
     Entity.call(this, game, startX, startY);
 }
 

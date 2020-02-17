@@ -1,10 +1,12 @@
-function ban(game, spritesheetArray, terrain) {
+function ban(game, terrain) {
 	this.game = game;
 	this.scalingFactor = .5;
-	this.animation = new arrAnimation(spritesheetArray, .05, true, this.scalingFactor, true);
+	this.animationIdle = new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 1, .1, 1, true, this.scalingFactor, true);
+	this.animationRunningRight = new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 5,.1, 5,true, this.scalingFactor, true);
+	this.animationRunningLeft = new Animation(AM.getAsset("./img/explosion/banLeft.png"),128, 128, 5, .1, 5, true, this.scalingFactor, true);
     this.speed = 0;
-	this.height = spritesheetArray[0].height;
-	this.width = spritesheetArray[0].width;
+	this.height = 128;
+	this.width = 128;
 	this.radius = this.calculateBoundingCircleRadius();
 	this.CollisionCicle = new CollisionCircle(this, this.radius, this.scalingFactor, terrain);
     this.ctx = game.ctx;
@@ -57,21 +59,20 @@ ban.prototype.update = function () {
 	}
 	if (this.runLeft) {
 		this.velocity.x = -100;
-        if (this.animation.isDone()) {
-            this.animation.elapsedTime = 0;
+        if (this.animationRunningLeft.isDone()) {
+            this.animationRunningLeft.elapsedTime = 0;
 			this.runLeft = false;
         }
 	}
 	if (this.runRight) {
 		this.velocity.x  = 100;
-        if (this.animation.isDone()) {
-            this.animation.elapsedTime = 0;
+        if (this.animationRunningRight.isDone()) {
+            this.animationRunningRight.elapsedTime = 0;
 			this.runRight = false;
-            
         }
 	}
-    if (this.x > 800) this.x = -230;
-	if (this.y > 800) this.y = -230;
+    if (this.x > 800) this.x = 0;
+	if (this.x < 0) this.x = 800;
 	this.x += this.game.clockTick * this.velocity.x;
 	this.y += this.game.clockTick * this.velocity.y;
     Entity.prototype.update.call(this);
@@ -79,7 +80,15 @@ ban.prototype.update = function () {
 
 ban.prototype.draw = function () {
 	this.CollisionCicle.debugDraw();
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    if (this.runLeft) {
+        this.animationRunningLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    }
+	else if (this.runRight) {
+        this.animationRunningRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    }
+    else {
+        this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    }
     Entity.prototype.draw.call(this);
 }
 
