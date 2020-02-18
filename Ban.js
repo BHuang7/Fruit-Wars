@@ -30,19 +30,25 @@ ban.prototype.update = function () {
 		if (distance(this.CollisionCicle.lineSeg.p1, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)
 			|| distance(this.CollisionCicle.lineSeg.p2, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)) {
 			var lineSegment2 = new LineSegment(this.game, this.CollisionCicle.lineSeg.p1, this.CollisionCicle.lineSeg.p2);
-			var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20,lineSegment2);
-			this.x += temp.x;
-			this.y += temp.y;
-			this.velocity.y = 0;
+			if (lineSegment2.slope != 0) {
+				var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20, lineSegment2);
+				this.x += temp.x;
+				this.y += temp.y;
+				this.velocity.y = 0;
+			} else {
+				this.velocity.y = 0;
+			}
 		}
 	} else if (!this.oneIntercept && this.collision) {
 		var lineSegment = new LineSegment(this.game, this.CollisionCicle.interceptionPoints[0], this.CollisionCicle.interceptionPoints[1]);
-		var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20,lineSegment);
-		this.x += temp.x;
-		this.y += temp.y;
-		this.velocity.y = 0;
-		// console.log(temp);
-		//console.log(this.CollisionCicle.interceptionPoints);
+		if (lineSegment.slope != 0) {
+			var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20, lineSegment);
+			this.x += temp.x;
+			this.y += temp.y;
+			this.velocity.y = 0;
+		} else {
+			this.velocity.y = 0; 	
+		}
 	}
 	if (this.game.a){
 		this.runLeft = true;
@@ -58,25 +64,28 @@ ban.prototype.update = function () {
 		this.runRight = false;
 	}
 	if (this.runLeft) {
-		this.velocity.x = -100;
+		this.velocity.x = -20;
         if (this.animationRunningLeft.isDone()) {
             this.animationRunningLeft.elapsedTime = 0;
 			this.runLeft = false;
         }
 	}
 	if (this.runRight) {
-		this.velocity.x  = 100;
+		this.velocity.x  = 20;
         if (this.animationRunningRight.isDone()) {
             this.animationRunningRight.elapsedTime = 0;
 			this.runRight = false;
+            
         }
 	}
-    if (this.x > 800) this.x = 0;
-	if (this.x < 0) this.x = 800;
+    if (this.x > 800) this.x = -230;
+	if (this.y > 800) this.y = -230;
 	this.x += this.game.clockTick * this.velocity.x;
 	this.y += this.game.clockTick * this.velocity.y;
     Entity.prototype.update.call(this);
+
 }
+
 
 ban.prototype.draw = function () {
 	this.CollisionCicle.debugDraw();
