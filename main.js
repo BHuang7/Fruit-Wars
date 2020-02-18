@@ -1,6 +1,9 @@
 AM.queueDownload("./img/background/background_1.png");
 AM.queueDownload("./img/background/background_2.png");
 AM.queueDownload("./img/background/background_3.png");
+AM.queueDownload("./img/terrain/dirt.jpg");
+AM.queueDownload("./img/terrain/red_dirt.jpg");
+AM.queueDownload("./img/terrain/purple_dirt.jpg");
 AM.queueDownload("./img/ninja/ninjaRight.png");
 AM.queueDownload("./img/ninja/ninjaIdle.png");
 AM.queueDownload("./img/ninja/ninjaLeft.png");

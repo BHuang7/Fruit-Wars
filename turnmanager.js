@@ -6,9 +6,20 @@ function turnManager(gameEngine) {
 	this.timer = 30;
 	this.starting = true;
 	this.shot = false;
-	var ground = new Terrain(gameEngine);
+
+	//Array of all foregrounds
+	var foregroundArray = [AM.getAsset("./img/terrain/red_dirt.jpg"), AM.getAsset("./img/terrain/dirt.jpg"), AM.getAsset("./img/terrain/purple_dirt.jpg")];
+	var levelSelect = Math.floor(Math.random() * foregroundArray.length);
+	var ground = new Terrain(gameEngine, foregroundArray[levelSelect]);
+	ground.coordinates = ground.generate(50, 500, 50);
+
+	// Array of all backgrounds
+	var backgroundArray = [AM.getAsset("./img/background/background_1.png"), AM.getAsset("./img/background/background_2.png"), AM.getAsset("./img/background/background_3.png")];
+	gameEngine.addEntity(new Background(gameEngine, backgroundArray[levelSelect]));
+
+	//var ground = new Terrain(gameEngine);
 	ground.coordinates = ground.generate(50, 500, 50);	
-	gameEngine.addEntity(new Background(gameEngine));
+	//gameEngine.addEntity(new Background(gameEngine));
 	gameEngine.addEntity(ground);
 	gameEngine.addEntity(new ninja(gameEngine));
 	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne));

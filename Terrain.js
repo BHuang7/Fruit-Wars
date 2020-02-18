@@ -1,8 +1,8 @@
-function Terrain(game) {
+function Terrain(game, sprite) {
     Entity.call(this, game, 0, 200);
-    this.radius = 100;
 	this.ctx = game.ctx;
-    let coordinates = [];
+    this.coordinates = [];
+    this.sprite = sprite;
 }
 
 Terrain.prototype = new Entity();
@@ -45,9 +45,7 @@ Terrain.prototype.update = function () {
 }
 
 Terrain.prototype.draw = function (ctx) {
-    let texture = new Image();
-    texture.src = "./img/terrain/dirt.jpg";
-    let pattern = ctx.createPattern(texture, "repeat");
+    let pattern = ctx.createPattern(this.sprite, "repeat");
     ctx.fillStyle = pattern;
 
     ctx.beginPath();
