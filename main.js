@@ -27,5 +27,7 @@ AM.downloadAll(function () {
 	gameEngine.addEntity(ground);
 	gameEngine.addEntity(new ninja(gameEngine));
 	gameEngine.addEntity(new ban(gameEngine, ground));
+	gameEngine.addEntity(new lime(gameEngine, ground));
+	gameEngine.addEntity(new pineapple(gameEngine, ground));
 
 });
