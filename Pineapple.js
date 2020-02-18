@@ -1,5 +1,7 @@
-function pineapple(game, terrain) {
+function pineapple(game, terrain,  manager, playerData) {
 	this.game = game;
+	this.manager = manager;
+	this.player = playerData;
 	this.scalingFactor = .25;
 	this.animationIdle = new Animation(AM.getAsset("./img/Pineapple/pineappleIdle.png"), 128, 128, 8, .1, 8, true, this.scalingFactor, false);
 	this.animationRunningRight = new Animation(AM.getAsset("./img/Pineapple/pineappleRight.png"), 128, 128, 5,.1, 5,true, this.scalingFactor, true);
@@ -50,33 +52,35 @@ pineapple.prototype.update = function () {
 			this.velocity.y = 0; 	
 		}
 	}
-	if (this.game.a){
-		this.runLeft = true;
-	}
-	
-	if (this.game.d){ 
-		this.runRight = true;
-	}
-	if(this.game.a === false){
-		this.runLeft = false;
-	}
-	if(this.game.d === false) {
-		this.runRight = false;
-	}
-	if (this.runLeft) {
-		this.velocity.x = -70;
-        if (this.animationRunningLeft.isDone()) {
-            this.animationRunningLeft.elapsedTime = 0;
+	if (this.player.turn) {
+		if (this.game.a){
+			this.runLeft = true;
+		}
+		
+		if (this.game.d){ 
+			this.runRight = true;
+		}
+		if(this.game.a === false){
 			this.runLeft = false;
-        }
-	}
-	if (this.runRight) {
-		this.velocity.x  = 70;
-        if (this.animationRunningRight.isDone()) {
-            this.animationRunningRight.elapsedTime = 0;
+		}
+		if(this.game.d === false) {
 			this.runRight = false;
-            
-        }
+		}
+		if (this.runLeft) {
+			this.velocity.x = -70;
+			if (this.animationRunningLeft.isDone()) {
+				this.animationRunningLeft.elapsedTime = 0;
+				this.runLeft = false;
+			}
+		}
+		if (this.runRight) {
+			this.velocity.x  = 70;
+			if (this.animationRunningRight.isDone()) {
+				this.animationRunningRight.elapsedTime = 0;
+				this.runRight = false;
+				
+			}
+		}
 	}
     if (this.x > 800) this.x = -230;
 	if (this.y > 800) this.y = -230;
@@ -106,3 +110,4 @@ pineapple.prototype.draw = function () {
 pineapple.prototype.calculateBoundingCircleRadius = function() {
 	return Math.sqrt(((this.width/2 * this.width/2) + (this.height/2 * this.height/2)));
 }
+

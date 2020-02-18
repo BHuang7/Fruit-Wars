@@ -21,13 +21,6 @@ AM.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();	
-	var ground = new Terrain(gameEngine);
-	ground.coordinates = ground.generate(50, 500, 50);	
-	gameEngine.addEntity(new Background(gameEngine));
-	gameEngine.addEntity(ground);
-	gameEngine.addEntity(new ninja(gameEngine));
-	gameEngine.addEntity(new ban(gameEngine, ground));
-	gameEngine.addEntity(new lime(gameEngine, ground));
-	gameEngine.addEntity(new pineapple(gameEngine, ground));
+	gameEngine.addEntity(new turnManager(gameEngine));
 
 });

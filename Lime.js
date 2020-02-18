@@ -1,5 +1,7 @@
-function lime(game, terrain) {
+function lime(game, terrain, manager, playerData) {
 	this.game = game;
+	this.manager = manager;
+	this.player = playerData;
 	this.scalingFactor = .25;
 	this.animationIdle = new Animation(AM.getAsset("./img/Lime/limeIdle.png"), 128, 128, 8, .1, 8, true, this.scalingFactor, false);
 	this.animationRunningRight = new Animation(AM.getAsset("./img/Lime/limeRight.png"), 128, 128, 5,.1, 5,true, this.scalingFactor, true);
@@ -50,33 +52,35 @@ lime.prototype.update = function () {
 			this.velocity.y = 0; 	
 		}
 	}
-	if (this.game.a){
-		this.runLeft = true;
-	}
-	
-	if (this.game.d){ 
-		this.runRight = true;
-	}
-	if(this.game.a === false){
-		this.runLeft = false;
-	}
-	if(this.game.d === false) {
-		this.runRight = false;
-	}
-	if (this.runLeft) {
-		this.velocity.x = -70;
-        if (this.animationRunningLeft.isDone()) {
-            this.animationRunningLeft.elapsedTime = 0;
+	if (this.player.turn) {
+		if (this.game.a){
+			this.runLeft = true;
+		}
+
+		if (this.game.d){ 
+			this.runRight = true;
+		}
+		if(this.game.a === false){
 			this.runLeft = false;
-        }
-	}
-	if (this.runRight) {
-		this.velocity.x  = 70;
-        if (this.animationRunningRight.isDone()) {
-            this.animationRunningRight.elapsedTime = 0;
+		}
+		if(this.game.d === false) {
 			this.runRight = false;
-            
-        }
+		}
+		if (this.runLeft) {
+			this.velocity.x = -70;
+			if (this.animationRunningLeft.isDone()) {
+				this.animationRunningLeft.elapsedTime = 0;
+				this.runLeft = false;
+			}
+		}
+		if (this.runRight) {
+			this.velocity.x  = 70;
+			if (this.animationRunningRight.isDone()) {
+				this.animationRunningRight.elapsedTime = 0;
+				this.runRight = false;
+				
+			}
+		}
 	}
     if (this.x > 800) this.x = -230;
 	if (this.y > 800) this.y = -230;
