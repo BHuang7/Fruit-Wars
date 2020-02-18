@@ -1,7 +1,6 @@
 function rocket(game,startX, startY, velocityX, velocityY) {	
 	this.animation = new Animation(AM.getAsset("./img/rocket/projectile1.png"), 32, 32, 9, .05, 9, true, 1, false);
-    this.speed = velocityX;
-	this.ySpeed = velocityY;
+	this.velocity = {x: velocityX,y: velocityY};
     this.ctx = game.ctx;
     Entity.call(this, game, startX, startY);
 }
@@ -26,8 +25,8 @@ rocket.prototype.update = function () {
 		this.removeFromWorld = true;
 		this.game.addEntity(new explosion(this.game,this.x, this.y));
 	}
-	this.x += this.game.clockTick * this.speed;
-	this.y += this.game.clockTick * this.ySpeed;
+	this.x += this.game.clockTick * this.velocity.x;
+	this.y += this.game.clockTick * this.velocity.y;
     Entity.prototype.update.call(this);
 }
 
