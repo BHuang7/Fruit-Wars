@@ -1,6 +1,6 @@
 function ban(game, terrain) {
 	this.game = game;
-	this.scalingFactor = .5;
+	this.scalingFactor = .25;
 	this.animationIdle = new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 1, .1, 1, true, this.scalingFactor, true);
 	this.animationRunningRight = new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 5,.1, 5,true, this.scalingFactor, true);
 	this.animationRunningLeft = new Animation(AM.getAsset("./img/explosion/banLeft.png"),128, 128, 5, .1, 5, true, this.scalingFactor, true);
@@ -64,14 +64,14 @@ ban.prototype.update = function () {
 		this.runRight = false;
 	}
 	if (this.runLeft) {
-		this.velocity.x = -20;
+		this.velocity.x = -70;
         if (this.animationRunningLeft.isDone()) {
             this.animationRunningLeft.elapsedTime = 0;
 			this.runLeft = false;
         }
 	}
 	if (this.runRight) {
-		this.velocity.x  = 20;
+		this.velocity.x  = 70;
         if (this.animationRunningRight.isDone()) {
             this.animationRunningRight.elapsedTime = 0;
 			this.runRight = false;

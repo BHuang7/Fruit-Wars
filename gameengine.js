@@ -37,7 +37,7 @@ function GameEngine() {
     this.wheel = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
-	this.gravity = 1;
+	this.gravity = 9.81;
 }
 
 GameEngine.prototype.init = function (ctx) {
