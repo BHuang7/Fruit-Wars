@@ -1,11 +1,8 @@
-
-
-function Terrain(game, foregroundImage) {
+function Terrain(game) {
     Entity.call(this, game, 0, 200);
-    this.spritesheet = foregroundImage;
+    this.radius = 100;
 	this.ctx = game.ctx;
-    this.coordinates = [];
-    this.lines = [];
+    let coordinates = [];
 }
 
 Terrain.prototype = new Entity();
@@ -18,10 +15,11 @@ Terrain.prototype.generate = function (points, groundLevel, yVariance) {
     let y = groundLevel;
     let xVariance = height/points * 2;
     let oldx = 0;
-    this.coordinates.push({x: 0, y: height});
+    coordinates = [];
+    coordinates.push([0, height]);
     for(let i = 0; i < points; i++) {
-        this.coordinates.push({x: x, y: y});
-        //console.log("x: " + this.coordinates[i].x + ", y: " + this.coordinates[i].y);
+        coordinates.push([x, y]);
+        //console.log("x: " + coordinates[i][0] + ", y: " + coordinates[i][1]);
         oldx = x;
         x += Math.random() * xVariance;
         var rand = Math.random() * 100;
@@ -35,26 +33,12 @@ Terrain.prototype.generate = function (points, groundLevel, yVariance) {
         if(x-oldx < 50)
             x += width/points;
     }
-this.coordinates.push({x: width, y: groundLevel});
-this.coordinates.push({x: width, y: height});
-this.lines = this.updateLines();
-console.log("lines length: " + this.lines.length)
-return this.coordinates;
+    coordinates.push([width, groundLevel]);
+    coordinates.push([width, height]);
+    
+return coordinates;
 
 } 
-
-//makes sure the lines match up with the points
-Terrain.prototype.updateLines = function() {
-    //console.log("printing the lines");
-    let oldPoint = this.coordinates[0];
-    let lines = [];
-    for(let i = 0; i < this.coordinates.length; i++) {
-        let newPoint = this.coordinates[i];
-        lines.push(new LineSegment(this.game, oldPoint, newPoint));
-        newPoint = oldPoint;
-    }
-    return lines;
-}
 
 Terrain.prototype.update = function () {
 
@@ -62,14 +46,14 @@ Terrain.prototype.update = function () {
 
 Terrain.prototype.draw = function (ctx) {
     let texture = new Image();
-    texture.src = this.spritesheet;
-    let pattern = ctx.createPattern(this.spritesheet, "repeat");
+    texture.src = "./img/terrain/dirt.jpg";
+    let pattern = ctx.createPattern(texture, "repeat");
     ctx.fillStyle = pattern;
 
     ctx.beginPath();
     ctx.moveTo(0, 700);
     for(let i = 0; i < this.coordinates.length; i++) {
-        ctx.lineTo(this.coordinates[i].x, this.coordinates[i].y);
+        ctx.lineTo(this.coordinates[i][0], this.coordinates[i][1]);
     }
     ctx.fill();
 }
