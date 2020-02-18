@@ -32,7 +32,8 @@ arrAnimation.prototype.isDone = function () {
     return (this.elapsedTime >= this.totalTime);
 }
 
-function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
+function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale, holdLast) {
+	this.holdLast = holdLast;
     this.spriteSheet = spriteSheet;
     this.frameWidth = frameWidth;
     this.frameDuration = frameDuration;
@@ -46,9 +47,14 @@ function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDurati
 }
 
 Animation.prototype.drawFrame = function (tick, ctx, x, y) {
-    this.elapsedTime += tick;
-    if (this.isDone()) {
-        if (this.loop) this.elapsedTime = 0;
+   this.elapsedTime += tick;
+	if (this.loop) {
+        if (this.isDone()) {
+			if (this.holdLast) this.elapsedTime -= this.frameDuration;
+            else {this.elapsedTime = 0;}
+        }
+    } else if (this.isDone()) {
+        return;
     }
     var frame = this.currentFrame();
     var xindex = 0;

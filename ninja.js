@@ -1,9 +1,9 @@
 // inheritance 
-function ninja(game, spritesheetArrayIdle, spritesheetArrayRunRight, spritesheetArrayRunLeft) {
-	this.animationIdle = new arrAnimation(spritesheetArrayIdle, .1, true, .25, false);
-	this.animationRunningRight = new arrAnimation(spritesheetArrayRunRight, .01, true, .25, false);
-	this.animationRunningLeft = new arrAnimation(spritesheetArrayRunLeft, .01, true, .25, false);
-	this.runRight = false;
+function ninja(game) {
+	this.animationIdle = new Animation(AM.getAsset("./img/ninja/ninjaIdle.png"), 232, 439, 10, .1, 10, true, .25, false);
+	this.animationRunningRight = new Animation(AM.getAsset("./img/ninja/ninjaRight.png"), 363, 458, 10,.01, 10,true, .25, false);
+	this.animationRunningLeft = new Animation(AM.getAsset("./img/ninja/ninjaLeft.png"),363, 458, 10, .01, 10, true, .25, false);
+	this.runRight = false; 
 	this.runLeft = false;
 	this.throwing = false;
 	this.speed = 0;
@@ -11,7 +11,6 @@ function ninja(game, spritesheetArrayIdle, spritesheetArrayRunRight, spritesheet
 	this.game = game;
     Entity.call(this, game, 400, 585);
 }
-
 ninja.prototype = new Entity();
 ninja.prototype.constructor = ninja;
 
