@@ -1,7 +1,7 @@
 function ban(game, terrain) {
 	this.game = game;
 	this.scalingFactor = .25;
-	this.animationIdle = new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 1, .1, 1, true, this.scalingFactor, true);
+	this.animationIdle = new Animation(AM.getAsset("./img/explosion/banIdle.png"), 128, 128, 8, .1, 8, true, this.scalingFactor, false);
 	this.animationRunningRight = new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 5,.1, 5,true, this.scalingFactor, true);
 	this.animationRunningLeft = new Animation(AM.getAsset("./img/explosion/banLeft.png"),128, 128, 5, .1, 5, true, this.scalingFactor, true);
     this.speed = 0;
@@ -96,6 +96,8 @@ ban.prototype.draw = function () {
         this.animationRunningRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
     else {
+		this.animationRunningLeft.elapsedTime = 0;
+		this.animationRunningRight.elapsedTime = 0;
         this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
     Entity.prototype.draw.call(this);
