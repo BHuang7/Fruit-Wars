@@ -52,37 +52,6 @@ ban.prototype.update = function () {
 			this.velocity.y = 0; 	
 		}
 	}
-	movement();
-    if (this.x > 800) this.x = -230;
-	if (this.y > 800) this.y = -230;
-	this.x += this.game.clockTick * this.velocity.x;
-	this.y += this.game.clockTick * this.velocity.y;
-    Entity.prototype.update.call(this);
-
-}
-
-
-ban.prototype.draw = function () {
-	this.CollisionCicle.debugDraw();
-    if (this.runLeft) {
-        this.animationRunningLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    }
-	else if (this.runRight) {
-        this.animationRunningRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    }
-    else {
-		this.animationRunningLeft.elapsedTime = 0;
-		this.animationRunningRight.elapsedTime = 0;
-        this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    }
-    Entity.prototype.draw.call(this);
-}
-
-ban.prototype.calculateBoundingCircleRadius = function() {
-	return Math.sqrt(((this.width/2 * this.width/2) + (this.height/2 * this.height/2)));
-}
-
-function movement() {
 	if (this.player.turn) {
 		if (this.game.a){
 			this.runLeft = true;
@@ -113,4 +82,31 @@ function movement() {
 			}
 		}
 	}
+    if (this.x > 800) this.x = -230;
+	if (this.y > 800) this.y = -230;
+	this.x += this.game.clockTick * this.velocity.x;
+	this.y += this.game.clockTick * this.velocity.y;
+    Entity.prototype.update.call(this);
+
+}
+
+
+ban.prototype.draw = function () {
+	this.CollisionCicle.debugDraw();
+    if (this.runLeft) {
+        this.animationRunningLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    }
+	else if (this.runRight) {
+        this.animationRunningRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    }
+    else {
+		this.animationRunningLeft.elapsedTime = 0;
+		this.animationRunningRight.elapsedTime = 0;
+        this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    }
+    Entity.prototype.draw.call(this);
+}
+
+ban.prototype.calculateBoundingCircleRadius = function() {
+	return Math.sqrt(((this.width/2 * this.width/2) + (this.height/2 * this.height/2)));
 }
