@@ -15,7 +15,7 @@ function Background(game, sprite) {
 
 Background.prototype.draw = function () {
     this.ctx.drawImage(this.spritesheet,
-        this.x, this.y, 800, 700);
+        this.x, this.y, this.game.ctx.canvas.width, this.game.ctx.canvas.height);
 };
 
 Background.prototype.update = function () {

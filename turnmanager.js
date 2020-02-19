@@ -18,7 +18,6 @@ function turnManager(gameEngine) {
 	gameEngine.addEntity(new Background(gameEngine, backgroundArray[levelSelect]));
 
 	//var ground = new Terrain(gameEngine);
-	ground.coordinates = ground.generate(50, 500, 50);	
 	//gameEngine.addEntity(new Background(gameEngine));
 	gameEngine.addEntity(ground);
 	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne));

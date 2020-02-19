@@ -22,5 +22,5 @@ AM.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();	
-	gameEngine.addEntity(new turnManager(gameEngine));
+	gameEngine.addEntity(new turnManager(gameEngine, ctx));
 });

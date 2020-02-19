@@ -9,8 +9,8 @@ Terrain.prototype = new Entity();
 Terrain.prototype.constructor = Terrain;
 
 Terrain.prototype.generate = function (points, groundLevel, yVariance) {
-	let height = 700;
-	let width = 800;
+	var width = this.game.ctx.canvas.width;
+    var height = this.game.ctx.canvas.height;
     let x = 0;
     let y = groundLevel;
     let xVariance = height/points * 2;
