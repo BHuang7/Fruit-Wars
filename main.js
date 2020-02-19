@@ -18,6 +18,7 @@ AM.queueDownload("./img/Lime/limeRight.png");
 AM.queueDownload("./img/Pineapple/pineappleIdle.png");
 AM.queueDownload("./img/Pineapple/pineappleLeft.png");
 AM.queueDownload("./img/Pineapple/pineappleRight.png");
+AM.queueDownload("./img/rocket/reticle.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
@@ -25,5 +26,4 @@ AM.downloadAll(function () {
     gameEngine.init(ctx);
     gameEngine.start();	
 	gameEngine.addEntity(new turnManager(gameEngine));
-
 });

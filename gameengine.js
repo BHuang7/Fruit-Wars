@@ -72,12 +72,19 @@ GameEngine.prototype.startInput = function () {
         if (String.fromCharCode(e.which) === ' ') that.space = true;
 		else if (String.fromCharCode(e.which) === 'A') that.a = true;
 		else if (String.fromCharCode(e.which) === 'D') that.d = true;
+		else if	(e.which === 39) that.rightArrow = true;
+		else if	(e.which === 37) that.leftArrow = true;
+		else if	(e.which === 38) that.upArrow = true;
+		else if	(e.which === 40) that.downArrow = true;
         e.preventDefault();
     }, false);
 	this.ctx.canvas.addEventListener("keyup", function (e) {
-        if (String.fromCharCode(e.which) === ' ') that.space = true;
-		else if (String.fromCharCode(e.which) === 'A') that.a = false;
+		if (String.fromCharCode(e.which) === 'A') that.a = false;
 		else if (String.fromCharCode(e.which) === 'D') that.d = false;
+		else if	(e.which === 39) that.rightArrow = false;
+		else if	(e.which === 37) that.leftArrow = false;
+		else if	(e.which === 38) that.upArrow = false;
+		else if	(e.which === 40) that.downArrow = false;
         e.preventDefault();
     }, false);
 
