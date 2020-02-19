@@ -21,7 +21,6 @@ function turnManager(gameEngine) {
 	ground.coordinates = ground.generate(50, 500, 50);	
 	//gameEngine.addEntity(new Background(gameEngine));
 	gameEngine.addEntity(ground);
-	gameEngine.addEntity(new ninja(gameEngine));
 	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne));
 	gameEngine.addEntity(new lime(gameEngine, ground, this, this.playerTwo));
 	gameEngine.addEntity(new pineapple(gameEngine, ground, this, this.playerThree));
