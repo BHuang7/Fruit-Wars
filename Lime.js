@@ -1,4 +1,6 @@
 function lime(game, terrain, manager, playerData) {
+	this.shooter = {angle: 15, power: 25};
+	this.ret = new reticle(this, game.ctx);
 	this.game = game;
 	this.manager = manager;
 	this.player = playerData;
@@ -54,6 +56,18 @@ lime.prototype.update = function () {
 		}
 	}
 	if (this.player.turn) {
+		if(this.game.rightArrow){
+			this.shooter.angle += 2;
+		}
+		if(this.game.leftArrow){
+			this.shooter.angle -= 2;
+		}
+		if(this.game.upArrow){
+			this.shooter.power++;
+		}
+		if(this.game.downArrow){
+			this.shooter.power--;
+		}
 		if (this.game.a){
 			this.runLeft = true;
 		}
@@ -66,6 +80,11 @@ lime.prototype.update = function () {
 		}
 		if(this.game.d === false) {
 			this.runRight = false;
+		}
+		if(this.game.space) {
+			var shooterAngle = (this.shooter.angle / 180) * Math.PI;
+			var shooterPower = {x: this.shooter.power * Math.cos(shooterAngle),y:this.shooter.power * Math.sin(shooterAngle)};
+			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager));
 		}
 		if (this.runLeft) {
 			this.velocity.x = -70;
@@ -85,6 +104,10 @@ lime.prototype.update = function () {
 	}
     if (this.x > 800) this.x = -230;
 	if (this.y > 800) this.y = -230;
+	if (this.shooter.power > 50) this.shooter.power = 50;
+	if (this.shooter.power < 0) this.shooter.power = 0;
+	if (this.shooter.angle > 360) this.shooter.angle -= 360;
+	if (this.shooter.angle < 0) this.shooter.angle += 360;
 	this.x += this.game.clockTick * this.velocity.x;
 	this.y += this.game.clockTick * this.velocity.y;
     Entity.prototype.update.call(this);
@@ -93,6 +116,7 @@ lime.prototype.update = function () {
 
 
 lime.prototype.draw = function () {
+	this.ret.drawReticle(this);
 	this.CollisionCicle.debugDraw();
     if (this.runLeft) {
         this.animationRunningLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
