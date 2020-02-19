@@ -4,15 +4,16 @@ function ban(game, terrain, manager, playerData) {
 	this.game = game;
 	this.manager = manager;
 	this.player = playerData;
-	this.scalingFactor = .25;
+	this.scalingFactor = .4;
 	this.animationIdle = new Animation(AM.getAsset("./img/explosion/banIdle.png"), 128, 128, 8, .1, 8, true, this.scalingFactor, false);
 	this.animationRunningRight = new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 5,.1, 5,true, this.scalingFactor, true);
 	this.animationRunningLeft = new Animation(AM.getAsset("./img/explosion/banLeft.png"),128, 128, 5, .1, 5, true, this.scalingFactor, true);
     this.speed = 0;
 	this.height = 128;
 	this.width = 128;
+	this.offsetRadii = 25;
 	this.radius = this.calculateBoundingCircleRadius();
-	this.CollisionCicle = new CollisionCircle(this, this.radius, this.scalingFactor, terrain);
+	this.CollisionCicle = new CollisionCircle(this, this.radius, this.scalingFactor, terrain, 15, 10, this.offsetRadii);
     this.ctx = game.ctx;
 	this.velocity = {x: 0, y: 0};
 	this.terrain = terrain;
@@ -31,11 +32,11 @@ ban.prototype.constructor = ban;
 ban.prototype.update = function () {
 	this.velocity.x = 0;
 	if (this.oneIntercept && this.collision) {
-		if (distance(this.CollisionCicle.lineSeg.p1, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)
-			|| distance(this.CollisionCicle.lineSeg.p2, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - 20)) {
+		if (distance(this.CollisionCicle.lineSeg.p1, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - this.offsetRadii)
+			|| distance(this.CollisionCicle.lineSeg.p2, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - this.offsetRadii)) {
 			var lineSegment2 = new LineSegment(this.game, this.CollisionCicle.lineSeg.p1, this.CollisionCicle.lineSeg.p2);
 			if (lineSegment2.slope != 0) {
-				var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20, lineSegment2);
+				var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - this.offsetRadii, lineSegment2);
 				this.x += temp.x;
 				this.y += temp.y;
 				this.velocity.y = 0;
@@ -46,7 +47,7 @@ ban.prototype.update = function () {
 	} else if (!this.oneIntercept && this.collision) {
 		var lineSegment = new LineSegment(this.game, this.CollisionCicle.interceptionPoints[0], this.CollisionCicle.interceptionPoints[1]);
 		if (lineSegment.slope != 0) {
-			var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - 20, lineSegment);
+			var temp = findPerpLineSeg(this.CollisionCicle.circleCenter, this.CollisionCicle.radius * this.scalingFactor - this.offsetRadii, lineSegment);
 			this.x += temp.x;
 			this.y += temp.y;
 			this.velocity.y = 0;
@@ -82,7 +83,7 @@ ban.prototype.update = function () {
 		if(this.game.space) {
 			var shooterAngle = (this.shooter.angle / 180) * Math.PI;
 			var shooterPower = {x: this.shooter.power * Math.cos(shooterAngle),y:this.shooter.power * Math.sin(shooterAngle)};
-			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15));
+			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager));
 		}
 		if (this.runLeft) {
 			this.velocity.x = -70;

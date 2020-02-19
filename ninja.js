@@ -16,9 +16,9 @@ ninja.prototype.constructor = ninja;
 
 ninja.prototype.update = function () {
 	this.speed = 0;
-	if (this.game.click){
-		this.game.addEntity(new rocket(this.game,this.x, this.y, this.game.xVal - this.x, this.game.yVal - this.y));
-	}
+	// if (this.game.click){
+		// this.game.addEntity(new rocket(this.game,this.x, this.y, this.game.xVal - this.x, this.game.yVal - this.y));
+	// }
 	if (this.game.a){
 		this.runLeft = true;
 	}
