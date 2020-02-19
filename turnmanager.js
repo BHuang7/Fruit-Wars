@@ -23,12 +23,12 @@ function turnManager(gameEngine) {
 	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne));
 	gameEngine.addEntity(new lime(gameEngine, ground, this, this.playerTwo));
 	gameEngine.addEntity(new pineapple(gameEngine, ground, this, this.playerThree));
-	this.turn1 = [this.playerThree, this.playerOne, 0];
-	this.turn2 = [this.playerFour, this.playerTwo, 0];
+	this.turn1 = [this.playerThree, this.playerOne];
+	this.counterOne = 0;
+	this.turn2 = [this.playerTwo];
+	this.counterTwo = 0;
 	this.team1 = false;
 	this.team2 = false;
-	this.allPlayers = [this.playerOne, this.playerTwo, this.playerThree, this.playerFour];
-	this.turns = [this.playerOne, this.playerTwo, this.playerThree, this.playerFour];
 }
 
 
@@ -38,8 +38,8 @@ turnManager.prototype.constructor = turnManager;
 
 turnManager.prototype.update = function () {
 	if (this.starting) {
-		this.turn1[2]++;
-		this.turn1[this.turn1[2] % this.turn1.length].turn = true;
+		this.counterOne++;
+		this.turn1[this.counterOne % this.turn1.length].turn = true;
 		this.team1 = true;
 		this.starting = false;
 	}
@@ -47,16 +47,16 @@ turnManager.prototype.update = function () {
 		if (this.team1) {
 			this.team1 = false;
 			this.team2 = true;
-			this.turn1[this.turn1[2] % this.turn1.length].turn = false;
-			this.turn2[2]++;
-			this.turn2[this.turn2[2] % this.turn2.length].turn = true;
+			this.turn1[this.counterOne % this.turn1.length].turn = false;
+			this.counterTwo++;
+			this.turn2[this.counterTwo % this.turn2.length].turn = true;
 			this.shot = false;
 		} else if (this.team2) {
 			this.team2 = false;
 			this.team1 = true;
-			this.turn1[2]++;
-			this.turn2[this.turn2[2] % this.turn2.length].turn = false;
-			this.turn1[this.turn1[2] % this.turn1.length].turn = true;
+			this.counterOne++;
+			this.turn2[this.counterTwo % this.turn2.length].turn = false;
+			this.turn1[this.counterOne % this.turn1.length].turn = true;
 			this.shot = false;
 		}
 		
