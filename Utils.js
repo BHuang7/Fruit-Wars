@@ -151,3 +151,49 @@ function lineCircleCollision(radius, circleCenter, line) {
     //console.log("no intersection");
     return [];
 }
+
+function Point(game, x, y) {
+    Entity.call(this, game, x, y);
+}
+
+//given the center point of a circle, a starting point on the circle, and a length L, find
+//the point that is L units along the circle. 
+function findArcEndpoint(start, center, L, clockwise) {
+    var r = Math.sqrt(Math.pow(start.x - center.x, 2) + Math.pow(start.y - center.y, 2));
+    var angle = Math.atan2(start.y - center.y, start.x - center.x);
+    if (clockwise) {
+        angle = angle - L / r;
+    }
+    else {
+        angle = angle + L / r;
+    }
+    var Bx = center.x + r * Math.cos(angle);
+    var By = center.y + r * Math.sin(angle);
+    return new Point(this.game, Bx, By);
+} 
+
+// A first point, C second point, B center point
+function findArcLength(radius, A, B, C) {
+    //find angle between 3 points
+    var AB = Math.sqrt(Math.pow(B.x-A.x,2)+ Math.pow(B.y-A.y,2));    
+    var BC = Math.sqrt(Math.pow(B.x-C.x,2)+ Math.pow(B.y-C.y,2)); 
+    var AC = Math.sqrt(Math.pow(C.x-A.x,2)+ Math.pow(C.y-A.y,2));
+    var result = Math.acos((BC*BC+AB*AB-AC*AC)/(2*BC*AB));
+    var angle = result * (180/Math.PI); //convert to degrees
+
+    //now compute arc distance
+    if (angle >= 360) { 
+        console.log("Angle " + " cannot be formed"); 
+        return 0; 
+    } 
+    else { 
+
+        let result = (Math.PI * radius * 2) * (angle / 360.0);
+        //check if it should compute the long way around
+        if(A.y > B.y || C.y > B.y){
+        return result;
+        } else {
+            return 360 - result;
+        }
+    } 
+}

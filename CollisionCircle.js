@@ -18,8 +18,8 @@ CollisionCircle.prototype.debugDraw = function() {
 	let centerY = this.sprite.y + (this.radius * this.scale) - this.offsetY ;
 	this.circleCenter = {x : centerX, y: centerY};
 	for (var i = 0; i < this.terrain.coordinates.length - 1; i++) {
-		var pointOne = {x : this.terrain.coordinates[i][0], y: this.terrain.coordinates[i][1]};
-		var pointTwo = {x:  this.terrain.coordinates[i + 1][0], y: this.terrain.coordinates[i + 1][1]};
+		var pointOne = {x : this.terrain.coordinates[i].x, y: this.terrain.coordinates[i].y};
+		var pointTwo = {x:  this.terrain.coordinates[i + 1].x, y: this.terrain.coordinates[i + 1].y};
 		if (inteceptCircleLineSeg(this.circleCenter, this.radius * this.scale - this.offsetRadii, pointOne, pointTwo).length >= 1) {
 			if (inteceptCircleLineSeg(this.circleCenter, this.radius * this.scale - this.offsetRadii, pointOne, pointTwo).length == 1) {
 				this.lineSeg = {p1:pointOne, p2:pointTwo};

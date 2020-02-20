@@ -12,6 +12,7 @@ function turnManager(gameEngine) {
 	var levelSelect = Math.floor(Math.random() * foregroundArray.length);
 	var ground = new Terrain(gameEngine, foregroundArray[levelSelect]);
 	ground.coordinates = ground.generate(50, 500, 50);
+	ground.lines = ground.updateLines();
 
 	// Array of all backgrounds
 	var backgroundArray = [AM.getAsset("./img/background/background_1.png"), AM.getAsset("./img/background/background_2.png"), AM.getAsset("./img/background/background_3.png")];
