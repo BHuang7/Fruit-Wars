@@ -83,7 +83,7 @@ ban.prototype.update = function () {
 		if(this.game.space) {
 			var shooterAngle = (this.shooter.angle / 180) * Math.PI;
 			var shooterPower = {x: this.shooter.power * Math.cos(shooterAngle),y:this.shooter.power * Math.sin(shooterAngle)};
-			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager));
+			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager, this.terrain));
 		}
 		if (this.runLeft) {
 			this.velocity.x = -70;

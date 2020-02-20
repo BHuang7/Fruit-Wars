@@ -63,6 +63,6 @@ turnManager.prototype.update = function () {
 	}
 	Entity.prototype.update.call(this);
 }
-turnManager.prototype.draw = function () { 
 
+turnManager.prototype.draw = function () { 
 }
