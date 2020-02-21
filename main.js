@@ -18,10 +18,11 @@ AM.queueDownload("./img/Pineapple/pineappleRight.png");
 AM.queueDownload("./img/Coconut/coconutIdle.png");
 AM.queueDownload("./img/Coconut/coconutLeft.png");
 AM.queueDownload("./img/Coconut/coconutRight.png");
-
 AM.queueDownload("./img/rocket/reticle.png");
 AM.queueDownload("./img/hud/hud.png");
 AM.queueDownload("./img/weapon/grenadeLauncher.png");
+AM.queueDownload("./img/weapon/sniper.png");
+
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
