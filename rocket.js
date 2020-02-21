@@ -11,7 +11,7 @@ function rocket(game,startX, startY, velocityX, velocityY, manager, terrain, spr
     this.ctx = game.ctx;
 	this.manager = manager;
 	this.collision = false;
-	this.damage = 15;
+	this.damage = 7.5;
     Entity.call(this, game, startX, startY);
 }
 

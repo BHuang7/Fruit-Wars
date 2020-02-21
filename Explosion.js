@@ -24,15 +24,13 @@ explosion.prototype.constructor = explosion;
 
 explosion.prototype.update = function () {
     this.x += this.game.clockTick * this.speed;
-	if (this.collision) {
-		console.log("collision");
-	}
     Entity.prototype.update.call(this);
 }
 
 explosion.prototype.draw = function () {
 	if(this.animation.isDone()) {
 		this.removeFromWorld = true;
+		this.collisionCircle.hpSubtraction = false;
 	}
 	else {
 		this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);

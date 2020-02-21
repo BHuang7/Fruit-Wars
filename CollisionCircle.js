@@ -10,11 +10,11 @@ function CollisionCircle(sprite, game ,radius, scale, terrain, offsetX, offsetY,
 	this.offsetY = offsetY;
 	this.offsetRadii = offsetRadii;
 	this.prevSprite;
+	this.hpSubraction = false;
 };
 
 
 CollisionCircle.prototype.debugDraw = function(isProjectile) {
-	var indexToRemove;
 	this.sprite.collision = false;
 	this.sprite.oneIntercept = false;
 	this.newRadii = this.radius * this.scale - this.offsetRadii;
@@ -24,9 +24,11 @@ CollisionCircle.prototype.debugDraw = function(isProjectile) {
 	if (isProjectile) {
 		for (var i = 0; i < this.game.spriteEntities.length; i++) {
 			if (this.sprite.sprite != this.game.spriteEntities[i]) {
-				if(circleToCircleCollision(this.circleCenter, this.game.spriteEntities[i].CollisionCicle.circleCenter, this.newRadii, this.game.spriteEntities[i].CollisionCicle.newRadii)) {
+				if(circleToCircleCollision(this.circleCenter, this.game.spriteEntities[i].CollisionCicle.circleCenter, this.newRadii, this.game.spriteEntities[i].CollisionCicle.newRadii) && !this.hpSubraction) {
 					this.sprite.collision = true;
 					this.game.spriteEntities[i].player.hp -= this.sprite.damage;
+					this.hpSubraction = true;
+					console.log(this.game.spriteEntities[i].player);
 					break;
 				}
 			}
@@ -48,9 +50,9 @@ CollisionCircle.prototype.debugDraw = function(isProjectile) {
 	
 	// console.log("debugDraw")
 	//Transparent colliding circle
-	//this.sprite.ctx.fillStyle = 'rgba(0, 0, 200, 0)'
+	this.sprite.ctx.fillStyle = 'rgba(0, 0, 200, 0)'
 	//Visualized Colliding Circle
-	this.sprite.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+	//this.sprite.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
 	this.sprite.ctx.beginPath();
 	this.sprite.ctx.arc(centerX, centerY, this.newRadii , 2 * Math.PI, false);
 	this.sprite.ctx.fill();
