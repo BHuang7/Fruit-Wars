@@ -55,7 +55,7 @@ ban.prototype.update = function () {
 			this.velocity.y = 0; 	
 		}
 	}
-	if (this.player.turn) {
+	if (this.player.turn && this.manager.exploded) {
 		if(this.game.rightArrow){
 			this.shooter.angle += 2;
 		}
@@ -83,6 +83,7 @@ ban.prototype.update = function () {
 		if(this.game.space) {
 			var shooterAngle = (this.shooter.angle / 180) * Math.PI;
 			var shooterPower = {x: this.shooter.power * Math.cos(shooterAngle),y:this.shooter.power * Math.sin(shooterAngle)};
+			this.manager.shot = true;
 			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager, this.terrain));
 		}
 		if (this.runLeft) {

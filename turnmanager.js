@@ -8,6 +8,7 @@ function turnManager(gameEngine) {
 	this.playerFour = { player: 4, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 1, .1, 1, true, 0.5, true) };
 	this.starting = true;
 	this.shot = false;
+	this.exploded = false;
 	this.gameEngine = gameEngine;
 	this.ctx = gameEngine.ctx;
 
@@ -18,7 +19,7 @@ function turnManager(gameEngine) {
 	ground.coordinates = ground.generate(50, 500, 50);
 	ground.lines = ground.updateLines();
 
-	// Array of all backgrounds
+	// Array of all backgroundss
 	var backgroundArray = [AM.getAsset("./img/background/background_1.png"), AM.getAsset("./img/background/background_2.png"), AM.getAsset("./img/background/background_3.png")];
 	gameEngine.addEntity(new Background(gameEngine, backgroundArray[levelSelect]));
 
@@ -31,7 +32,7 @@ function turnManager(gameEngine) {
 	gameEngine.addEntity(new coconut(gameEngine, ground, this, this.playerFour));
 	this.turn1 = [this.playerThree, this.playerOne];
 	this.counterOne = 0;
-	this.turn2 = [this.playerTwo, this.playerFour];
+	this.turn2 = [this.playerFour, this.playerTwo];
 	this.counterTwo = 0;
 	this.team1 = false;
 	this.team2 = false;
@@ -63,10 +64,12 @@ turnManager.prototype.update = function () {
 		this.turn1[this.counterOne % this.turn1.length].turn = true;
 		this.team1 = true;
 		this.starting = false;
+		this.exploded = true;
 	}
 	if (this.shot || this.currentCountDown() == "Time Up") {
 		this.currentCountDown = createCountDown(this.DEFAULT_TIME_LIMIT);
 		if (this.team1) {
+			this.exploded = false;
 			this.team1 = false;
 			this.team2 = true;
 			this.turn1[this.counterOne % this.turn1.length].turn = false;
@@ -75,6 +78,7 @@ turnManager.prototype.update = function () {
 			this.currentPlayer = (this.turn2[this.counterTwo % this.turn2.length]);
 			this.shot = false;
 		} else if (this.team2) {
+			this.exploded = false;
 			this.team2 = false;
 			this.team1 = true;
 			this.counterOne++;

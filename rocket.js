@@ -19,8 +19,7 @@ rocket.prototype.constructor = rocket;
 rocket.prototype.update = function () {
 	if (this.collision) {
 		this.removeFromWorld = true;
-		this.game.addEntity(new explosion(this.game,this.x, this.y));
-		this.manager.shot = true;
+		this.game.addEntity(new explosion(this.game,this.x, this.y, this.terrain, this.manager));
 	}
     // if (this.x > 750){
 		// this.removeFromWorld = true;
