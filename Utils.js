@@ -11,9 +11,6 @@ function rotateImage(image, angle) {
     offscreenCtx.drawImage(image, -(image.width / 2), -(image.height / 2));
     offscreenCtx.restore();
     return offscreenCanvas;
-}
-	
-	
 };
 
 function downloadImage(path, numberOfImages) {
