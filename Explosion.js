@@ -1,8 +1,9 @@
 // inheritance 
-function explosion(game, coordX, coordY, terrain, manager, sprite) {
+function explosion(game, coordX, coordY, terrain, manager, sprite, damage) {
 	this.sprite = sprite;
 	this.game = game;
 	this.manager = manager;
+	this.damage = damage;
 	this.img = AM.getAsset("./img/explosion/explosion.png")
 	this.animation = new Animation(this.img, 32, 32, 32, .02, 32, false, 2, false);
 	this.width = this.img.width;

@@ -26,6 +26,7 @@ CollisionCircle.prototype.debugDraw = function(isProjectile) {
 			if (this.sprite.sprite != this.game.spriteEntities[i]) {
 				if(circleToCircleCollision(this.circleCenter, this.game.spriteEntities[i].CollisionCicle.circleCenter, this.newRadii, this.game.spriteEntities[i].CollisionCicle.newRadii)) {
 					this.sprite.collision = true;
+					this.game.spriteEntities[i].player.hp -= this.sprite.damage;
 					break;
 				}
 			}
@@ -47,9 +48,9 @@ CollisionCircle.prototype.debugDraw = function(isProjectile) {
 	
 	// console.log("debugDraw")
 	//Transparent colliding circle
-	this.sprite.ctx.fillStyle = 'rgba(0, 0, 200, 0)'
+	//this.sprite.ctx.fillStyle = 'rgba(0, 0, 200, 0)'
 	//Visualized Colliding Circle
-	//this.sprite.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+	this.sprite.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
 	this.sprite.ctx.beginPath();
 	this.sprite.ctx.arc(centerX, centerY, this.newRadii , 2 * Math.PI, false);
 	this.sprite.ctx.fill();

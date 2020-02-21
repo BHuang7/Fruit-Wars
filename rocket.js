@@ -11,6 +11,7 @@ function rocket(game,startX, startY, velocityX, velocityY, manager, terrain, spr
     this.ctx = game.ctx;
 	this.manager = manager;
 	this.collision = false;
+	this.damage = 15;
     Entity.call(this, game, startX, startY);
 }
 
@@ -20,7 +21,7 @@ rocket.prototype.constructor = rocket;
 rocket.prototype.update = function () {
 	if (this.collision) {
 		this.removeFromWorld = true;
-		this.game.addEntity(new explosion(this.game,this.x, this.y, this.terrain, this.manager, this.sprite), false);
+		this.game.addEntity(new explosion(this.game,this.x, this.y, this.terrain, this.manager, this.sprite, this.damage), false);
 	}
     // if (this.x > 750){
 		// this.removeFromWorld = true;
