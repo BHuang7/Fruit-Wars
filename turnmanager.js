@@ -100,22 +100,22 @@ turnManager.prototype.update = function () {
 
 turnManager.prototype.draw = function (ctx) {
 	// Set background for hud
-	// ctx.drawImage(this.hudBackground, this.x, this.y);
-	ctx.font = "30px Calibri";
+	ctx.drawImage(this.hudBackground, this.x, this.y);
+	ctx.font = "40px Calibri Light";
 	ctx.textAlign = 'center';
 	ctx.textBaseline = "top";
 	ctx.fillStyle = "black";
 
-	ctx.fillText(this.currentCountDown(), 700, 55);
+	ctx.fillText(this.currentCountDown(), 700, 67);
 	ctx.fillText("Time", 700, 25);
 
 	// Set Up current character
-	this.currentPlayer.icon.drawFrame(this.gameEngine.clockTick, this.ctx, 20, 15);
+	this.currentPlayer.icon.drawFrame(this.gameEngine.clockTick, this.ctx, 22, 20);
 	
 	// Set up current weapon
-	ctx.drawImage(this.currentWeapon, 140, -660);
+	ctx.drawImage(this.currentWeapon, 1210, -8);
 
-	drawHealthbar(ctx, 80, 30, 150, 40, this.currentPlayer.hp, 100);
+	drawHealthbar(ctx, 110, 42, 286, 32, this.currentPlayer.hp, 100);
 }
 
 // createCountDown retrieves current countdown
