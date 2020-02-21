@@ -28,9 +28,10 @@ function turnManager(gameEngine) {
 	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne));
 	gameEngine.addEntity(new lime(gameEngine, ground, this, this.playerTwo));
 	gameEngine.addEntity(new pineapple(gameEngine, ground, this, this.playerThree));
+	gameEngine.addEntity(new coconut(gameEngine, ground, this, this.playerFour));
 	this.turn1 = [this.playerThree, this.playerOne];
 	this.counterOne = 0;
-	this.turn2 = [this.playerTwo];
+	this.turn2 = [this.playerTwo, this.playerFour];
 	this.counterTwo = 0;
 	this.team1 = false;
 	this.team2 = false;

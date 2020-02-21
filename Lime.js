@@ -6,8 +6,8 @@ function lime(game, terrain, manager, playerData) {
 	this.player = playerData;
 	this.scalingFactor = .4;
 	this.animationIdle = new Animation(AM.getAsset("./img/Lime/limeIdle.png"), 128, 128, 8, .1, 8, true, this.scalingFactor, false);
-	this.animationRunningRight = new Animation(AM.getAsset("./img/Lime/limeRight.png"), 128, 128, 5,.1, 5,true, this.scalingFactor, true);
-	this.animationRunningLeft = new Animation(AM.getAsset("./img/Lime/limeLeft.png"),128, 128, 5, .1, 5, true, this.scalingFactor, true);
+	this.animationRunningRight = new Animation(AM.getAsset("./img/Lime/limeRight.png"), 128, 128, 6,.1, 6,true, this.scalingFactor, true);
+	this.animationRunningLeft = new Animation(AM.getAsset("./img/Lime/limeLeft.png"),128, 128, 6, .1, 6, true, this.scalingFactor, true);
     this.speed = 0;
 	this.height = 128;
 	this.width = 128;
@@ -22,7 +22,7 @@ function lime(game, terrain, manager, playerData) {
 	this.runLeft = false;
 	this.gravity = 10;
 	this.oneIntercept = false;
-    Entity.call(this, game, 300, 250);
+    Entity.call(this, game, 800, 250);
 }
 
 
@@ -102,8 +102,8 @@ lime.prototype.update = function () {
 			}
 		}
 	}
-    if (this.x > 800) this.x = -230;
-	if (this.y > 800) this.y = -230;
+    //if (this.x > 800) this.x = -230;
+	//if (this.y > 800) this.y = -230;
 	if (this.shooter.power > 50) this.shooter.power = 50;
 	if (this.shooter.power < 0) this.shooter.power = 0;
 	if (this.shooter.angle > 360) this.shooter.angle -= 360;

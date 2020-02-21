@@ -15,6 +15,10 @@ AM.queueDownload("./img/Lime/limeRight.png");
 AM.queueDownload("./img/Pineapple/pineappleIdle.png");
 AM.queueDownload("./img/Pineapple/pineappleLeft.png");
 AM.queueDownload("./img/Pineapple/pineappleRight.png");
+AM.queueDownload("./img/Coconut/coconutIdle.png");
+AM.queueDownload("./img/Coconut/coconutLeft.png");
+AM.queueDownload("./img/Coconut/coconutRight.png");
+
 AM.queueDownload("./img/rocket/reticle.png");
 AM.queueDownload("./img/hud/hud.png");
 AM.queueDownload("./img/weapon/grenadeLauncher.png");

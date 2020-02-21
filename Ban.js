@@ -101,8 +101,8 @@ ban.prototype.update = function () {
 			}
 		}
 	}
-    if (this.x > 800) this.x = -230;
-	if (this.y > 800) this.y = -230;
+    //if (this.x > 800) this.x = -230;
+	//if (this.y > 800) this.y = -230;
 	if (this.shooter.power > 50) this.shooter.power = 50;
 	if (this.shooter.power < 0) this.shooter.power = 0;
 	if (this.shooter.angle > 360) this.shooter.angle -= 360;

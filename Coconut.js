@@ -1,13 +1,13 @@
-function pineapple(game, terrain,  manager, playerData) {
+function coconut(game, terrain,  manager, playerData) {
 	this.shooter = {angle: 15, power: 25};
 	this.ret = new reticle(this, game.ctx);
 	this.game = game;
 	this.manager = manager;
 	this.player = playerData;
 	this.scalingFactor = .4;
-	this.animationIdle = new Animation(AM.getAsset("./img/Pineapple/pineappleIdle.png"), 128, 128, 8, .1, 8, true, this.scalingFactor, false);
-	this.animationRunningRight = new Animation(AM.getAsset("./img/Pineapple/pineappleRight.png"), 128, 128, 6,.1, 6,true, this.scalingFactor, true);
-	this.animationRunningLeft = new Animation(AM.getAsset("./img/Pineapple/pineappleLeft.png"),128, 128, 6, .1, 6, true, this.scalingFactor, true);
+	this.animationIdle = new Animation(AM.getAsset("./img/Coconut/coconutIdle.png"), 128, 128, 8, .1, 8, true, this.scalingFactor, false);
+	this.animationRunningRight = new Animation(AM.getAsset("./img/Coconut/coconutRight.png"), 128, 128, 6,.1, 6,true, this.scalingFactor, true);
+	this.animationRunningLeft = new Animation(AM.getAsset("./img/Coconut/coconutLeft.png"),128, 128, 6, .1, 6, true, this.scalingFactor, true);
     this.speed = 0;
 	this.height = 128;
 	this.width = 128;
@@ -22,14 +22,14 @@ function pineapple(game, terrain,  manager, playerData) {
 	this.runLeft = false;
 	this.gravity = 10;
 	this.oneIntercept = false;
-    Entity.call(this, game, 350, 250);
+    Entity.call(this, game, 950, 250);
 }
 
 
-pineapple.prototype = new Entity();
-pineapple.prototype.constructor = pineapple;
+coconut.prototype = new Entity();
+coconut.prototype.constructor = coconut;
 
-pineapple.prototype.update = function () {
+coconut.prototype.update = function () {
 	this.velocity.x = 0;
 	if (this.oneIntercept && this.collision) {
 		if (distance(this.CollisionCicle.lineSeg.p1, this.CollisionCicle.circleCenter) <= (this.CollisionCicle.radius * this.scalingFactor - this.offsetRadii)
@@ -115,7 +115,7 @@ pineapple.prototype.update = function () {
 }
 
 
-pineapple.prototype.draw = function () {
+coconut.prototype.draw = function () {
 	this.ret.drawReticle(this);
 	this.CollisionCicle.debugDraw();
     if (this.runLeft) {
@@ -132,7 +132,7 @@ pineapple.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
-pineapple.prototype.calculateBoundingCircleRadius = function() {
+coconut.prototype.calculateBoundingCircleRadius = function() {
 	return Math.sqrt(((this.width/2 * this.width/2) + (this.height/2 * this.height/2)));
 }
 
