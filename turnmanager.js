@@ -5,7 +5,7 @@ function turnManager(gameEngine) {
 	this.playerOne = { player: 1, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/explosion/banIdle.png"), 128, 128, 8, .1, 8, true, 0.5, false) };
 	this.playerTwo = { player: 2, hp: 80, turn: false, icon: new Animation(AM.getAsset("./img/Lime/limeIdle.png"), 128, 128, 8, .1, 8, true, .5, false) };
 	this.playerThree = { player: 3, hp: 10, turn: false, icon: new Animation(AM.getAsset("./img/Pineapple/pineappleIdle.png"), 128, 128, 8, .1, 8, true, .5, false) };
-	this.playerFour = { player: 4, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/explosion/banRight.png"), 128, 128, 1, .1, 1, true, 0.5, true) };
+	this.playerFour = { player: 4, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/Coconut/coconutIdle.png"), 128, 128, 1, .1, 1, true, 0.5, true) };
 	this.starting = true;
 	this.shot = false;
 	this.exploded = false;
@@ -21,15 +21,15 @@ function turnManager(gameEngine) {
 
 	// Array of all backgroundss
 	var backgroundArray = [AM.getAsset("./img/background/background_1.png"), AM.getAsset("./img/background/background_2.png"), AM.getAsset("./img/background/background_3.png")];
-	gameEngine.addEntity(new Background(gameEngine, backgroundArray[levelSelect]));
+	gameEngine.addEntity(new Background(gameEngine, backgroundArray[levelSelect]), false);
 
 	//var ground = new Terrain(gameEngine);
 	//gameEngine.addEntity(new Background(gameEngine));
-	gameEngine.addEntity(ground);
-	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne));
-	gameEngine.addEntity(new lime(gameEngine, ground, this, this.playerTwo));
-	gameEngine.addEntity(new pineapple(gameEngine, ground, this, this.playerThree));
-	gameEngine.addEntity(new coconut(gameEngine, ground, this, this.playerFour));
+	gameEngine.addEntity(ground, false);
+	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne), true);
+	gameEngine.addEntity(new lime(gameEngine, ground, this, this.playerTwo), true);
+	gameEngine.addEntity(new pineapple(gameEngine, ground, this, this.playerThree), true);
+	gameEngine.addEntity(new coconut(gameEngine, ground, this, this.playerFour), true);
 	this.turn1 = [this.playerThree, this.playerOne];
 	this.counterOne = 0;
 	this.turn2 = [this.playerFour, this.playerTwo];
@@ -47,7 +47,7 @@ function turnManager(gameEngine) {
 	this.currentWeapon = AM.getAsset("./img/weapon/grenadeLauncher.png");
 
 	// Default time per turn in ms
-	this.DEFAULT_TIME_LIMIT = 4000;
+	this.DEFAULT_TIME_LIMIT = 15000;
 	this.currentCountDown = createCountDown(this.DEFAULT_TIME_LIMIT);
 
 	Entity.call(this, gameEngine, 0, 0);

@@ -212,3 +212,12 @@ function findArcLength(radius, A, B, C) {
         }
     } 
 }
+
+
+
+function circleToCircleCollision(c1, c2, r1, r2) {
+	let diffX = Math.pow((c2.x - c1.x), 2);
+	let diffY = Math.pow((c2.y - c1.y), 2);
+	return Math.sqrt(diffX + diffY) <= r1 + r2;
+	
+}

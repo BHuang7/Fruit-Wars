@@ -1,5 +1,7 @@
 // inheritance 
-function explosion(game, coordX, coordY, terrain, manager) {
+function explosion(game, coordX, coordY, terrain, manager, sprite) {
+	this.sprite = sprite;
+	this.game = game;
 	this.manager = manager;
 	this.img = AM.getAsset("./img/explosion/explosion.png")
 	this.animation = new Animation(this.img, 32, 32, 32, .02, 32, false, 2, false);
@@ -8,7 +10,7 @@ function explosion(game, coordX, coordY, terrain, manager) {
 	this.terrain = terrain;
 	this.radius = this.calculateBoundingCircleRadius();
 	this.offsetRadii = 0;
-	this.collisionCircle = new CollisionCircle(this, this.radius, .05, this.terrain, -9, -10, this.offsetRadii);
+	this.collisionCircle = new CollisionCircle(this, game, this.radius, .05, this.terrain, -9, -10, this.offsetRadii);
     this.speed = 0;
     this.ctx = game.ctx;
 	this.manager.exploded = true;
@@ -28,11 +30,13 @@ explosion.prototype.update = function () {
 }
 
 explosion.prototype.draw = function () {
-	if(this.animation.isDone()) {this.removeFromWorld = true;}
+	if(this.animation.isDone()) {
+		this.removeFromWorld = true;
+	}
 	else {
 		this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
 	}
-    
+    this.collisionCircle.debugDraw(true);
     Entity.prototype.draw.call(this);
 }
 

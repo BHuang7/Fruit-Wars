@@ -13,7 +13,7 @@ function pineapple(game, terrain,  manager, playerData) {
 	this.width = 128;
 	this.offsetRadii = 25;
 	this.radius = this.calculateBoundingCircleRadius();
-	this.CollisionCicle = new CollisionCircle(this, this.radius, this.scalingFactor, terrain, 11, 0, this.offsetRadii);
+	this.CollisionCicle = new CollisionCircle(this, game, this.radius, this.scalingFactor, terrain, 11, 0, this.offsetRadii);
     this.ctx = game.ctx;
 	this.velocity = {x: 0, y: 0};
 	this.terrain = terrain;
@@ -85,7 +85,7 @@ pineapple.prototype.update = function () {
 			var shooterAngle = (this.shooter.angle / 180) * Math.PI;
 			var shooterPower = {x: this.shooter.power * Math.cos(shooterAngle),y:this.shooter.power * Math.sin(shooterAngle)};
 			this.manager.shot = true;
-			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager, this.terrain));
+			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager, this.terrain, this), false);
 		}
 		if (this.runLeft) {
 			this.velocity.x = -70;
@@ -118,7 +118,7 @@ pineapple.prototype.update = function () {
 
 pineapple.prototype.draw = function () {
 	this.ret.drawReticle(this);
-	this.CollisionCicle.debugDraw();
+	this.CollisionCicle.debugDraw(false);
     if (this.runLeft) {
         this.animationRunningLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
