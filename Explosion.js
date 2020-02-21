@@ -12,6 +12,7 @@ function explosion(game, coordX, coordY, terrain, manager) {
     this.speed = 0;
     this.ctx = game.ctx;
 	this.manager.exploded = true;
+	this.collision = false;
     Entity.call(this, game, coordX, coordY);
 }
 
@@ -20,6 +21,9 @@ explosion.prototype.constructor = explosion;
 
 explosion.prototype.update = function () {
     this.x += this.game.clockTick * this.speed;
+	if (this.collision) {
+		console.log("collision");
+	}
     Entity.prototype.update.call(this);
 }
 

@@ -55,6 +55,7 @@ lime.prototype.update = function () {
 			this.velocity.y = 0; 	
 		}
 	}
+	console.log(this.manager.exploded);
 	if (this.player.turn && this.manager.exploded) {
 		if(this.game.rightArrow){
 			this.shooter.angle += 2;

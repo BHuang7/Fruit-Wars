@@ -11,7 +11,7 @@ function turnManager(gameEngine) {
 	this.exploded = false;
 	this.gameEngine = gameEngine;
 	this.ctx = gameEngine.ctx;
-
+	this.fromCountDown = false;
 	//Array of all foregrounds
 	var foregroundArray = [AM.getAsset("./img/terrain/red_dirt.jpg"), AM.getAsset("./img/terrain/dirt.jpg"), AM.getAsset("./img/terrain/purple_dirt.jpg")];
 	var levelSelect = Math.floor(Math.random() * foregroundArray.length);
@@ -47,7 +47,7 @@ function turnManager(gameEngine) {
 	this.currentWeapon = AM.getAsset("./img/weapon/grenadeLauncher.png");
 
 	// Default time per turn in ms
-	this.DEFAULT_TIME_LIMIT = 15000;
+	this.DEFAULT_TIME_LIMIT = 4000;
 	this.currentCountDown = createCountDown(this.DEFAULT_TIME_LIMIT);
 
 	Entity.call(this, gameEngine, 0, 0);
@@ -67,6 +67,7 @@ turnManager.prototype.update = function () {
 		this.exploded = true;
 	}
 	if (this.shot || this.currentCountDown() == "Time Up") {
+		if (this.currentCountDown() == "Time Up") this.fromCountDown = true;
 		this.currentCountDown = createCountDown(this.DEFAULT_TIME_LIMIT);
 		if (this.team1) {
 			this.exploded = false;
@@ -75,8 +76,9 @@ turnManager.prototype.update = function () {
 			this.turn1[this.counterOne % this.turn1.length].turn = false;
 			this.counterTwo++;
 			this.turn2[this.counterTwo % this.turn2.length].turn = true;
-			this.currentPlayer = (this.turn2[this.counterTwo % this.turn2.length]);
+			this.currentPlayer = (this.turn2[this.counterTwo % this.turn2.length]); 
 			this.shot = false;
+			
 		} else if (this.team2) {
 			this.exploded = false;
 			this.team2 = false;
@@ -86,6 +88,10 @@ turnManager.prototype.update = function () {
 			this.turn1[this.counterOne % this.turn1.length].turn = true;
 			this.currentPlayer = (this.turn1[this.counterOne % this.turn1.length]);
 			this.shot = false;
+		}
+		if (this.fromCountDown) {
+			this.exploded = true;
+			this.fromCountDown = false;
 		}
 	}
 
