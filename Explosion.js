@@ -28,7 +28,11 @@ explosion.prototype.update = function () {
 }
 
 explosion.prototype.draw = function () {
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+	if(this.animation.isDone()) {this.removeFromWorld = true;}
+	else {
+		this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+	}
+    
     Entity.prototype.draw.call(this);
 }
 

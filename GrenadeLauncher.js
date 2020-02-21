@@ -1,0 +1,5 @@
+function grenadeLauncher(player) {
+	
+	
+	
+};
