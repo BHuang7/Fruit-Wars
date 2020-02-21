@@ -16,6 +16,8 @@ AM.queueDownload("./img/Pineapple/pineappleIdle.png");
 AM.queueDownload("./img/Pineapple/pineappleLeft.png");
 AM.queueDownload("./img/Pineapple/pineappleRight.png");
 AM.queueDownload("./img/rocket/reticle.png");
+AM.queueDownload("./img/hud/hud.png");
+AM.queueDownload("./img/weapon/grenadeLauncher.png");
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
