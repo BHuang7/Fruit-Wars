@@ -1,5 +1,6 @@
-function Terrain(game, sprite) {
+function Terrain(game, sprite, manager) {
     Entity.call(this, game, 0, 200);
+	this.gameManager = manager;
     this.expl = new Point(game, 0, 0);
 	this.ctx = game.ctx;
     this.coordinates = [...new Set()];
@@ -52,10 +53,10 @@ return coordinates;
 } 
 
 Terrain.prototype.update = function () {
-    if(this.game.click != null) {
-        //console.log("explosion! x:" + this.game.click.x + " y:" + this.game.click.y);
-        this.expl = new Point(this.game, this.game.xVal, this.game.yVal);
-        this.explosion(this.expl, 25);
+    // if(this.game.click != null) {
+        // console.log("explosion! x:" + this.game.xVal + " y:" + this.game.yVal);
+        // this.expl = new Point(this.game, this.game.xVal, this.game.yVal);
+        // this.explosion(this.expl, 25);	
         // for(let i = 0; i < this.coordinates.length; i++){
         //     let collisions = lineCircleCollision(50, this.expl, this.lines[i]);
         //     if(collisions.length > 0){
@@ -64,8 +65,13 @@ Terrain.prototype.update = function () {
         //     }
         // }
         //console.log("explosion done, points: " + this.coordinates.length)
-        this.game.click = null;
-    }
+    //    this.game.click = null;
+   // }
+  if (this.gameManager.explosionOccured) {
+	  this.expl = new Point(this.game, this.gameManager.explosionX, this.gameManager.explosionY);
+	  this.explosion(this.expl, this.gameManager.explosionRadius);
+	  this.gameManager.explosionOccured = false;
+  }
 }
 
 Terrain.prototype.draw = function (ctx) {

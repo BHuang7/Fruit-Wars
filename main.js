@@ -22,6 +22,9 @@ AM.queueDownload("./img/rocket/reticle.png");
 AM.queueDownload("./img/hud/hud.png");
 AM.queueDownload("./img/weapon/grenadeLauncher.png");
 AM.queueDownload("./img/weapon/sniper.png");
+AM.queueDownload("./img/weapon/airStrike.png");
+AM.queueDownload("./img/rocket/sniperBullet.png");
+AM.queueDownload("./img/rocket/airRocket.png");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");

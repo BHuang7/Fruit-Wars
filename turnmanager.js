@@ -12,10 +12,14 @@ function turnManager(gameEngine) {
 	this.gameEngine = gameEngine;
 	this.ctx = gameEngine.ctx;
 	this.fromCountDown = false;
+	this.explosionX = 0;
+	this.explosionY = 0;
+	this.explosionRadius = 0;
+	this.explosionOccured = false;
 	//Array of all foregrounds
 	var foregroundArray = [AM.getAsset("./img/terrain/red_dirt.jpg"), AM.getAsset("./img/terrain/dirt.jpg"), AM.getAsset("./img/terrain/purple_dirt.jpg")];
 	var levelSelect = Math.floor(Math.random() * foregroundArray.length);
-	var ground = new Terrain(gameEngine, foregroundArray[levelSelect]);
+	var ground = new Terrain(gameEngine, foregroundArray[levelSelect], this);
 	ground.coordinates = ground.generate(50, 500, 50);
 	ground.lines = ground.updateLines();
 

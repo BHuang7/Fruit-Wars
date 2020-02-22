@@ -6,7 +6,7 @@ function explosion(game, coordX, coordY, terrain, manager, sprite, damage) {
 	this.damage = damage;
 	this.img = AM.getAsset("./img/explosion/explosion.png")
 	this.animation = new Animation(this.img, 32, 32, 32, .02, 32, false, 2, false);
-	this.width = this.img.width;
+	this.width = this.img.width / 32;
 	this.height = this.img.height;
 	this.terrain = terrain;
 	this.radius = this.calculateBoundingCircleRadius();
@@ -16,7 +16,7 @@ function explosion(game, coordX, coordY, terrain, manager, sprite, damage) {
     this.ctx = game.ctx;
 	this.manager.exploded = true;
 	this.collision = false;
-    Entity.call(this, game, coordX, coordY);
+    Entity.call(this, game, coordX - this.width, coordY - this.height + 20);
 }
 
 explosion.prototype = new Entity();
@@ -29,6 +29,10 @@ explosion.prototype.update = function () {
 
 explosion.prototype.draw = function () {
 	if(this.animation.isDone()) {
+		this.manager.explosionX = this.collisionCircle.circleCenter.x;
+		this.manager.explosionY = this.collisionCircle.circleCenter.y;
+		this.manager.explosionRadius = this.collisionCircle.newRadii;
+		this.manager.explosionOccured = true;
 		this.removeFromWorld = true;
 		this.collisionCircle.hpSubtraction = false;
 	}

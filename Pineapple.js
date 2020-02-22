@@ -22,6 +22,8 @@ function pineapple(game, terrain,  manager, playerData) {
 	this.runLeft = false;
 	this.gravity = 10;
 	this.oneIntercept = false;
+	this.airstrikeLoc = {x:350, y:250};
+	this.selectedWep = new grenadeLauncher(this);
     Entity.call(this, game, 350, 250);
 }
 
@@ -56,17 +58,48 @@ pineapple.prototype.update = function () {
 		}
 	}
 	if (this.player.turn && this.manager.exploded) {
-		if(this.game.rightArrow){
-			this.shooter.angle += 2;
+		if(this.game.numOne) {
+			this.selectedWep = new grenadeLauncher(this);
+		}
+		if(this.game.numTwo) {
+			this.selectedWep = new sniper(this);
+		}
+		if(this.game.numThree) {
+			this.selectedWep = new airstrike(this);
+		}
+ 		if(this.game.rightArrow){
+			if(this.ret.type === "airstrike") {
+				this.airstrikeLoc.x += 4;
+			}
+			else {
+				this.shooter.angle += 2;
+			}
 		}
 		if(this.game.leftArrow){
-			this.shooter.angle -= 2;
+			if(this.ret.type === "airstrike") {
+				this.airstrikeLoc.x -= 4;
+			}
+			else {
+				this.shooter.angle -= 2;
+			}
+			
 		}
 		if(this.game.upArrow){
-			this.shooter.power++;
+			if(this.ret.type === "airstrike") {
+				this.airstrikeLoc.y -= 4;
+			}
+			else {
+				this.shooter.power++;
+			}
+			
 		}
 		if(this.game.downArrow){
-			this.shooter.power--;
+			if(this.ret.type === "airstrike") {
+				this.airstrikeLoc.y += 4;
+			}
+			else {
+				this.shooter.power--;
+			}
 		}
 		if (this.game.a){
 			this.runLeft = true;
@@ -82,10 +115,18 @@ pineapple.prototype.update = function () {
 			this.runRight = false;
 		}
 		if(this.game.space) {
-			var shooterAngle = (this.shooter.angle / 180) * Math.PI;
-			var shooterPower = {x: this.shooter.power * Math.cos(shooterAngle),y:this.shooter.power * Math.sin(shooterAngle)};
 			this.manager.shot = true;
-			this.game.addEntity(new rocket(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager, this.terrain, this), false);
+			if(this.ret.type === "arc") {
+				var shooterAngle = (this.shooter.angle / 180) * Math.PI;
+				var shooterPower = {x: this.shooter.power * Math.cos(shooterAngle),y:this.shooter.power * Math.sin(shooterAngle)};
+				this.selectedWep.fire(this.game, this.x, this.y, shooterPower.x * 15, shooterPower.y * 15, this.manager, this.terrain, this);
+			}
+			if(this.ret.type === "airstrike") {
+				this.selectedWep.fire(this.game, this.airstrikeLoc.x, this.manager, this.terrain, this);
+			}
+			if(this.ret.type === "sniper") {
+				this.selectedWep.fire(this.game,this.x, this.y, this.shooter.angle, this.manager, this.terrain, this);
+			}
 		}
 		if (this.runLeft) {
 			this.velocity.x = -70;
@@ -105,6 +146,10 @@ pineapple.prototype.update = function () {
 	}
     //if (this.x > 800) this.x = -230;
 	//if (this.y > 800) this.y = -230;
+	if (this.airstrikeLoc.x > 1400) this.airstrikeLoc = 1400;
+	if (this.airstrikeLoc.x < 0) this.airstrikeLoc = 0;
+	if (this.airstrikeLoc.y > 700) this.airstrikeLoc = 700;
+	if (this.airstrikeLoc.y < 0) this.airstrikeLoc = 0;
 	if (this.shooter.power > 50) this.shooter.power = 50;
 	if (this.shooter.power < 0) this.shooter.power = 0;
 	if (this.shooter.angle > 360) this.shooter.angle -= 360;
@@ -130,6 +175,7 @@ pineapple.prototype.draw = function () {
 		this.animationRunningRight.elapsedTime = 0;
         this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
+	this.selectedWep.drawIMG((this.shooter.angle / 180) * Math.PI);
     Entity.prototype.draw.call(this);
 }
 
