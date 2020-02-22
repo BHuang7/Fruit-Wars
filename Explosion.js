@@ -11,7 +11,7 @@ function explosion(game, coordX, coordY, terrain, manager, sprite, damage) {
 	this.terrain = terrain;
 	this.radius = this.calculateBoundingCircleRadius();
 	this.offsetRadii = 0;
-	this.collisionCircle = new CollisionCircle(this, game, this.radius, .05, this.terrain, -9, -10, this.offsetRadii);
+	this.collisionCircle = new CollisionCircle(this, game, this.radius, 1, this.terrain, -9, -10, this.offsetRadii);
     this.speed = 0;
     this.ctx = game.ctx;
 	this.manager.exploded = true;
