@@ -29,28 +29,22 @@ sniperBullet.prototype.update = function () {
 		this.removeFromWorld = true;
 		
 	}
-    // if (this.x > 750){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot = true;
-	// }
-	// if (this.x < 0){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot = true;
-	// }
-	// if (this.y < 0){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot  = true;
-	// }
-	// if (this.y > 660){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot = true;
-	// }
+	if (this.x > 1400 || this.x < 0)  {
+		this.manager.explosionOccured = true;
+		this.manager.exploded = true;
+		this.collisionCircle.hpSubtraction = false;
+		this.removeFromWorld = true;	
+	}
+	
+	if (this.y < 0) {
+		this.manager.explosionOccured = true;
+		this.manager.exploded = true;
+		this.collisionCircle.hpSubtraction = false;
+		this.removeFromWorld = true;	
+	}
 	this.x += this.game.clockTick * this.velo.x;
 	this.y += this.game.clockTick * this.velo.y;
+	console.log(this.x + " " + this.y);
     Entity.prototype.update.call(this);
 }
 
