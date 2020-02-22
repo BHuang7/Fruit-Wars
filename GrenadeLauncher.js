@@ -1,6 +1,7 @@
 function grenadeLauncher(player) {
 	this.player = player;
 	this.wepImage = AM.getAsset("./img/weapon/grenadeLauncher.png");
+	this.backwepImage = AM.getAsset("./img/weapon/grenadeLauncherB.png");
 	this.ctx = player.ctx;
 	this.scale = .5;
 	this.player.ret.type = "arc"

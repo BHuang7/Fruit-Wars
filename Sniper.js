@@ -1,6 +1,7 @@
 function sniper(player) {
 	this.player = player;
 	this.wepImage = AM.getAsset("./img/weapon/sniper.png");
+	this.backwepImage = AM.getAsset("./img/weapon/sniperB.png");
 	this.ctx = player.ctx;
 	this.scale = .5;
 	this.player.ret.type = "sniper"
