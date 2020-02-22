@@ -8,9 +8,17 @@ function grenadeLauncher(player) {
 
 grenadeLauncher.prototype.drawIMG = function(angle) {
 	if(this.player.player.turn) {
-		var wepImage = rotateImage(this.wepImage, angle);
-		var targetCenter = {x: this.player.x + (.5 * this.player.width * this.player.scalingFactor), y: this.player.y +(.5 * this.player.height * this.player.scalingFactor)};
-		this.ctx.drawImage(wepImage, targetCenter.x - .5*(wepImage.width*this.scale), targetCenter.y - .5*(wepImage.height*this.scale), wepImage.width*this.scale, wepImage.height*this.scale);
+		if(angle > Math.PI/2 && angle < (3*Math.PI)/2 ) {
+			var wepImage = rotateImage(this.backwepImage, angle + Math.PI);
+			var targetCenter = {x: this.player.x + (.5 * this.player.width * this.player.scalingFactor), y: this.player.y +(.5 * this.player.height * this.player.scalingFactor)};
+			this.ctx.drawImage(wepImage, targetCenter.x - .5*(wepImage.width*this.scale), targetCenter.y - .5*(wepImage.height*this.scale), wepImage.width*this.scale, wepImage.height*this.scale);
+			
+		}
+		else{
+			var wepImage = rotateImage(this.wepImage, angle);
+			var targetCenter = {x: this.player.x + (.5 * this.player.width * this.player.scalingFactor), y: this.player.y +(.5 * this.player.height * this.player.scalingFactor)};
+			this.ctx.drawImage(wepImage, targetCenter.x - .5*(wepImage.width*this.scale), targetCenter.y - .5*(wepImage.height*this.scale), wepImage.width*this.scale, wepImage.height*this.scale);
+		}
 		// Set up current weapon
 		this.ctx.drawImage(rotateImage(this.wepImage, 0), 1220, 0, wepImage.width*.8, wepImage.height*.8);
 	}
