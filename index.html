@@ -1,14 +1,37 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title>Game Project Shell</title>
-	
-   <script type="text/javascript" src="./assetmanager.js">		</script>
+	<meta charset="utf-8">
+	<title>Game Project Shell</title>
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		/* Create four equal columns that floats next to each other */
+		.column {
+			float: left;
+			width: 25%;
+			padding: 10px;
+			height: 300px;
+			/* Should be removed. Only for demonstration */
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	</style>
+
+	<script type="text/javascript" src="./assetmanager.js">		</script>
 	<script type="text/javascript" src="./Utils.js">			</script>
 	<script type="text/javascript" src="./Reticle.js">			</script>
 	<script type="text/javascript" src="./LineSegment.js">		</script>
-    <script type="text/javascript" src="./gameengine.js">		</script>
+	<script type="text/javascript" src="./gameengine.js">		</script>
 	<script type="text/javascript" src="./CollisionCircle.js">	</script>
 	<script type="text/javascript" src="./turnmanager.js">	 	</script>
 	<script type="text/javascript" src="./Ban.js">				</script>
@@ -25,11 +48,44 @@
 	<script type="text/javascript" src="./Animators.js">		</script>
 	<script type="text/javascript" src="./rocket.js">			</script>
 	<script type="text/javascript" src="./Terrain.js">			</script>
-    <script type="text/javascript" src="./main.js">				</script>
+	<script type="text/javascript" src="./main.js">				</script>
 </head>
+
 <body>
-	<div style = "text-align:center;">
-		<canvas id="gameWorld" tabindex="1" width="1400" height="700" style="border: 1px solid brown; background: lightskyblue"></canvas>
+	<div style="text-align:center;">
+		<canvas id="gameWorld" tabindex="1" width="1400" height="700"
+			style="border: 1px solid brown; background: lightskyblue"></canvas>
 	</div>
+	<div
+		style="margin: 0 auto; width: 1400px; height: 230px; text-align: center; border: 15px solid rgba(255,205,33,0.54); border-radius: 40px;">
+
+		<h1>Welcome to Fruit Wars</h1>
+		<div class="row">
+			<div class="column">
+				<div><b>Teams</b></div>
+				<div>Team 1: Banana & Pineapple</div>
+				<div>Team 2: Lime & Coconut</div>
+			</div>
+			<div class="column">
+				<div><b>Movement</b> </div>
+				<div>a: move left </div>
+				<div>d: move right </div>
+			</div>
+			<div class="column">
+				<div><b>Shooting</b></div>
+				<div>up arrow: increae power</div>
+				<div>down arrow: decrease power</div>
+				<div>right arrow & left arrow: aim</div>
+			</div>
+			<div class="column">
+				<div><b>Weapon Selection</b></div>
+				<div>1: grenade launcher</div>
+				<div>2: sniper</div>
+				<div>3: air strike</div>
+			</div>
+		</div>
+	</div>
+
 </body>
+
 </html>

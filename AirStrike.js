@@ -11,6 +11,9 @@ airstrike.prototype.drawIMG = function(angle) {
 		var wepImage = rotateImage(this.wepImage, angle);
 		var targetCenter = {x: this.player.x + (.5 * this.player.width * this.player.scalingFactor), y: this.player.y +(.5 * this.player.height * this.player.scalingFactor)};
 		this.ctx.drawImage(wepImage, targetCenter.x - .25*(wepImage.width*this.scale), targetCenter.y - .5*(wepImage.height*this.scale), wepImage.width*this.scale, wepImage.height*this.scale);
+		
+		// Set up current weapon
+		this.ctx.drawImage(wepImage, 1250, 30, wepImage.width*.08, wepImage.height*.08);
 	}
 };
 

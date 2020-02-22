@@ -176,6 +176,11 @@ pineapple.prototype.draw = function () {
         this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
 	this.selectedWep.drawIMG((this.shooter.angle / 180) * Math.PI);
+
+	if (this.player.hp <= 0){
+		this.removeFromWorld = true;
+	}
+
     Entity.prototype.draw.call(this);
 }
 

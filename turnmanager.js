@@ -3,8 +3,8 @@
 
 function turnManager(gameEngine) {
 	this.playerOne = { player: 1, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/explosion/banIdle.png"), 128, 128, 8, .1, 8, true, 0.51, false) };
-	this.playerTwo = { player: 2, hp: 80, turn: false, icon: new Animation(AM.getAsset("./img/Lime/limeIdle.png"), 128, 128, 8, .1, 8, true, .58, false) };
-	this.playerThree = { player: 3, hp: 10, turn: false, icon: new Animation(AM.getAsset("./img/Pineapple/pineappleIdle.png"), 128, 128, 8, .1, 8, true, .52, false) };
+	this.playerTwo = { player: 2, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/Lime/limeIdle.png"), 128, 128, 8, .1, 8, true, .58, false) };
+	this.playerThree = { player: 3, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/Pineapple/pineappleIdle.png"), 128, 128, 8, .1, 8, true, .52, false) };
 	this.playerFour = { player: 4, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/Coconut/coconutIdle.png"), 128, 128, 8, .1, 8, true, 0.58, false) };
 	this.starting = true;
 	this.shot = false;
@@ -47,8 +47,6 @@ function turnManager(gameEngine) {
 	// Current character: 
 	this.currentPlayer = this.playerOne;
 
-	// Current weapon: 
-	this.currentWeapon = AM.getAsset("./img/weapon/grenadeLauncher.png");
 
 	// Default time per turn in ms
 	this.DEFAULT_TIME_LIMIT = 15000;
@@ -115,11 +113,10 @@ turnManager.prototype.draw = function (ctx) {
 
 	// Set Up current character
 	this.currentPlayer.icon.drawFrame(this.gameEngine.clockTick, this.ctx, 22, 20);
-	
-	// Set up current weapon
-	ctx.drawImage(this.currentWeapon, 1210, -8);
 
 	drawHealthbar(ctx, 110, 42, 286, 32, this.currentPlayer.hp, 100);
+
+	checkGameStatus(ctx, this.turn1, this.turn2);
 }
 
 // createCountDown retrieves current countdown
@@ -158,4 +155,45 @@ function drawHealthbar(canvas, x, y, width, height, health, max_health) {
 		canvas.fillStyle = '#00' + colorString;
 	}
 	canvas.fillRect(x + 1, y + 1, (health / max_health) * (width - 2), height - 2);
+	canvas.font = "28px Calibri";
+	canvas.fillStyle = ("white");
+	canvas.fillText(health + "/" + max_health, 257, 47);
+}
+
+/**
+ * checkGameStatus checks to see if all valid players are in the game 
+ * Also, if the game is over
+ */
+function checkGameStatus(theCanvas, theTeam1, theTeam2) {
+	// If an array is empty that means the other team won
+	// Check first team to see if anyone is at 0 health 
+	if (theTeam1.length > 0) {
+		var i;
+		for (i = 0; i < theTeam1.length; i++) {
+			if (theTeam1[i].hp <= 0) {
+				theTeam1.splice(i, 1);
+			}
+		}
+	} else { // Team lost no members left
+		theCanvas.fillStyle = "black";
+		theCanvas.font = "100px Calibri Light";
+		theCanvas.fillText("Game Over", 700, 200);
+		theCanvas.fillText("Congratulations Team 2!", 700, 300);
+	}
+
+	// Check second team to see if anyone is at 0 health
+	if (theTeam2.length > 0) {
+		var i;
+		for (i = 0; i < theTeam2.length; i++) {
+			if (theTeam2[i].hp <= 0) {
+				theTeam2.splice(i, 1);
+			}
+		}
+	} else { // Team lost no members left
+		theCanvas.fillStyle = "black";
+		theCanvas.font = "100px Calibri Light";
+		theCanvas.fillText("Game Over", 700, 200);
+		theCanvas.fillText("Congratulations Team 1!", 700, 300);
+	}
+
 }
