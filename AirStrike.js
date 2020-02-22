@@ -13,7 +13,7 @@ airstrike.prototype.drawIMG = function(angle) {
 		this.ctx.drawImage(wepImage, targetCenter.x - .25*(wepImage.width*this.scale), targetCenter.y - .5*(wepImage.height*this.scale), wepImage.width*this.scale, wepImage.height*this.scale);
 		
 		// Set up current weapon
-		this.ctx.drawImage(wepImage, 1250, 30, wepImage.width*.08, wepImage.height*.08);
+		this.ctx.drawImage(rotateImage(this.wepImage, 0), 1250, 30, wepImage.width*.08, wepImage.height*.08);
 	}
 };
 
