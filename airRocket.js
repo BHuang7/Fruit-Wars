@@ -23,26 +23,6 @@ airRocket.prototype.update = function () {
 		this.removeFromWorld = true;
 		this.game.addEntity(new explosion(this.game, this.x, this.y + 10, this.terrain, this.manager, this.sprite, this.damage), false);
 	}
-    // if (this.x > 750){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot = true;
-	// }
-	// if (this.x < 0){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot = true;
-	// }
-	// if (this.y < 0){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot  = true;
-	// }
-	// if (this.y > 660){
-		// this.removeFromWorld = true;
-		// this.game.addEntity(new explosion(this.game,this.x, this.y));
-		// this.manager.shot = true;
-	// }
 	this.x += this.game.clockTick * this.velocity.x;
 	this.y += this.game.clockTick * this.velocity.y;
     Entity.prototype.update.call(this);

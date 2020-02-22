@@ -39,6 +39,19 @@ explosion.prototype.draw = function () {
 	else {
 		this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
 	}
+	if (this.x > 1400 || this.x < 0)  {
+		this.manager.explosionOccured = true;
+		this.manager.exploded = true;
+		this.collisionCircle.hpSubtraction = false;
+		this.removeFromWorld = true;	
+	}
+	
+	if (this.y < 0) {
+		this.manager.explosionOccured = true;
+		this.manager.exploded = true;
+		this.collisionCircle.hpSubtraction = false;
+		this.removeFromWorld = true;	
+	}
     this.collisionCircle.debugDraw(true);
     Entity.prototype.draw.call(this);
 }
