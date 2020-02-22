@@ -22,6 +22,8 @@ AM.queueDownload("./img/rocket/reticle.png");
 AM.queueDownload("./img/hud/hud.png");
 AM.queueDownload("./img/weapon/grenadeLauncher.png");
 AM.queueDownload("./img/weapon/sniper.png");
+AM.queueDownload("./img/weapon/grenadeLauncherB.png");
+AM.queueDownload("./img/weapon/sniperB.png");
 AM.queueDownload("./img/weapon/airStrike.png");
 AM.queueDownload("./img/rocket/sniperBullet.png");
 AM.queueDownload("./img/rocket/airRocket.png");
