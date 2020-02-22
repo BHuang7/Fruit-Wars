@@ -1,11 +1,11 @@
-AM.queueDownload("./img/background/Background_1.png");
+AM.queueDownload("./img/background/background_1.png");
 AM.queueDownload("./img/background/background_2.png");
-AM.queueDownload("./img/background/Background_3.png");
+AM.queueDownload("./img/background/background_3.png");
 AM.queueDownload("./img/terrain/dirt.jpg");
 AM.queueDownload("./img/terrain/red_dirt.jpg");
 AM.queueDownload("./img/terrain/purple_dirt.jpg");
 AM.queueDownload("./img/explosion/banLeft.png");
-AM.queueDownload("./img/explosion/BanRight.png");
+AM.queueDownload("./img/explosion/banRight.png");
 AM.queueDownload("./img/explosion/banIdle.png");
 AM.queueDownload("./img/rocket/projectile1.png");
 AM.queueDownload("./img/explosion/explosion.png");
