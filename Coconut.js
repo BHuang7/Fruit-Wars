@@ -178,6 +178,7 @@ coconut.prototype.draw = function () {
 	this.selectedWep.drawIMG((this.shooter.angle / 180) * Math.PI);
 
 	if (this.player.hp <= 0){
+		this.manager.turn2.splice(0, 1);
 		this.removeFromWorld = true;
 	}
     Entity.prototype.draw.call(this);
