@@ -66,12 +66,13 @@ Terrain.prototype.update = function () {
         // }
         //console.log("explosion done, points: " + this.coordinates.length)
     //    this.game.click = null;
-   // }
-  if (this.gameManager.explosionOccured) {
-	  this.expl = new Point(this.game, this.gameManager.explosionX, this.gameManager.explosionY);
-	  this.explosion(this.expl, this.gameManager.explosionRadius);
-	  this.gameManager.explosionOccured = false;
-  }
+//    }
+//   The explosion is now being generated at the top of the Explosion class
+//   if (this.gameManager.explosionOccured) {
+// 	  this.expl = new Point(this.game, this.gameManager.explosionX, this.gameManager.explosionY);
+// 	  this.explosion(this.expl, this.gameManager.explosionRadius);
+// 	  this.gameManager.explosionOccured = false;
+//   }
 }
 
 Terrain.prototype.draw = function (ctx) {
@@ -87,9 +88,10 @@ Terrain.prototype.draw = function (ctx) {
 }
 
 Terrain.prototype.explosion = function (p, radius) {
+    //console.log("explosion size: " + radius);
     let newTerrain = [...new Set()];
 
-    console.log("starting explosion");
+    // console.log("starting explosion");
     //go through all lines to see if there is a collision and keep track of the lines being cut short
     let intersectionPoints = [];
     var point = new Entity(this.game, p.x, p.y);
@@ -113,14 +115,14 @@ Terrain.prototype.explosion = function (p, radius) {
             if(intersection[1] === "point inside") {
                 //if we are on the first side of a "mountain", add the point before the "peak"
                 if(intersectionPoints.length === 0) {
-                    console.log("delete 1 point");
-                    newTerrain.push(this.coordinates[i-1]);
+                    // console.log("delete 1 point");
+                    newTerrain.push(this.coordinates[i]);
                 }
-                console.log("only 1 intersection")
+                // console.log("only 1 intersection")
                 intersectionPoints.push(intersection[0]);
             } else { //collided with a single line segment
                 newTerrain.push(this.coordinates[i]);
-                console.log("collisions: p1: (" + intersection[1].x + ", " + intersection[1].y + "), p2: (" + intersection[0].x + ", " + intersection[0].y + ")");
+                // console.log("collisions: p1: (" + intersection[1].x + ", " + intersection[1].y + "), p2: (" + intersection[0].x + ", " + intersection[0].y + ")");
                 intersectionPoints.push(intersection[1]);
                 intersectionPoints.push(intersection[0]);
             }
@@ -130,17 +132,17 @@ Terrain.prototype.explosion = function (p, radius) {
             pointA = intersectionPoints.shift();
             pointC = intersectionPoints.shift();
 
-            console.log("collisions: p1: (" + pointA.x + ", " + pointA.y + "), p2: (" + pointC.x + ", " + pointC.y + ")");
+            // console.log("collisions: p1: (" + pointA.x + ", " + pointA.y + "), p2: (" + pointC.x + ", " + pointC.y + ")");
        
 
             //draw arcs between pairs of points. If there is only one point, it means 
             //that there is a peak and we only have one side so far.
             this.drawArc(newTerrain, radius, pointA, point, pointC, 10, i);
             if(i+1 < this.coordinates.length) {
-                console.log("added point after");
-                newTerrain.push(this.coordinates[i]) //changed to i, not i + 1
+                // console.log("added point after");
+                newTerrain.push(this.coordinates[i+1]);
             } else {
-                console.log("tried to add invalid index");
+                // console.log("tried to add invalid index");
             }
         }
         //if the line segment is inside the explosion, don't add them the the new terrain
@@ -148,7 +150,7 @@ Terrain.prototype.explosion = function (p, radius) {
     this.coordinates = newTerrain;
     this.lines = this.updateLines();
     if(this.lines.length === 0){
-        console.log("lines is empty")
+        // console.log("lines is empty")
     }
 }
 
@@ -156,10 +158,10 @@ Terrain.prototype.updateLines = function() {
     //console.log("printing the lines");
     let oldPoint = this.coordinates[0];
     let lines = [];
-    for(let i = 0; i < this.coordinates.length; i++) {
+    for(let i = 1; i < this.coordinates.length; i++) {
         let newPoint = this.coordinates[i];
         if (typeof(newPoint) === "undefined") {
-            console.log("point is undefined")
+            // console.log("point is undefined")
         }
         lines.push(new LineSegment(this.game, oldPoint, newPoint));
         oldPoint = newPoint;
@@ -175,7 +177,7 @@ Terrain.prototype.drawArc = function(terrain, radius, A, B, C, detail, index) {
 
     //this.coordinates.splice(index+1, 0, A); // add first intersection
     terrain.push(A); // add first intersection
-    console.log("distance: " + totalDistance);
+    // console.log("distance: " + totalDistance);
 
     totalDistance -= detail;
     //create line segments in the shape of an arc
@@ -198,7 +200,7 @@ Terrain.prototype.drawArc = function(terrain, radius, A, B, C, detail, index) {
 function lineCircleCollision(radius, circleCenter, line) {
     //first check if segment is completely inside circle
     if(distance(line.p1, circleCenter) <= radius && distance(line.p2, circleCenter) <= radius) {
-        console.log("line is inside");
+        // console.log("line is inside");
         return ["inside"];
     }
 
@@ -221,8 +223,6 @@ function lineCircleCollision(radius, circleCenter, line) {
             new Point(this.game, x2, line.getY(x2))
         ];
         
-
-
         if (d == 0) {
             // only 1 intersection
             //var dist1 = distance(line.p1, circleCenter);
@@ -254,6 +254,9 @@ function lineCircleCollision(radius, circleCenter, line) {
             return intersections[0];
         }
         
+        l1 -= 0.0000001
+        l2 -= 0.0000001
+
         //console.log("length: " + line.length + ", l1: " + l1 + ", l2: " + l2);
         //check first intersection is off the line segment
         if(l1 > line.length) {

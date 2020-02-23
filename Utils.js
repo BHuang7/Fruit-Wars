@@ -196,6 +196,17 @@ function findArcLength(radius, A, B, C) {
     var result = Math.acos((BC*BC+AB*AB-AC*AC)/(2*BC*AB));
     var angle = result * (180/Math.PI); //convert to degrees
 
+    let line = new LineSegment(this.game, A, B);
+    if (B.x - A.x > 0) {
+        if(belowLine(C, line.slope, line.intercept)) {
+            angle = 360 - angle;
+        }
+    } else if (B.x - A.x < 0) {
+        if(aboveLine(C, line.slope, line.intercept)) {
+            angle = 360 - angle;
+        }
+    }
+
     //now compute arc distance
     if (angle >= 360) { 
         console.log("Angle " + " cannot be formed"); 
@@ -203,13 +214,14 @@ function findArcLength(radius, A, B, C) {
     } 
     else { 
 
-        let result = (Math.PI * radius * 2) * (angle / 360.0);
+        let solution = (Math.PI * radius * 2) * (angle / 360.0);
         //check if it should compute the long way around
-        if(A.y > B.y || C.y > B.y){
-        return result;
-        } else {
-            return 360 - result;
-        }
+        // if(A.y > B.y || C.y > B.y){
+        // return result;
+        // } else {
+        //     return 360 - result;
+        // }
+        return solution;
     } 
 }
 
@@ -220,4 +232,12 @@ function circleToCircleCollision(c1, c2, r1, r2) {
 	let diffY = Math.pow((c2.y - c1.y), 2);
 	return Math.sqrt(diffX + diffY) <= r1 + r2;
 	
+}
+
+function aboveLine(point, slope, intercept) {
+    return (point.y > (slope * point.x + intercept));
+}
+
+function belowLine(point, slope, intercept) {
+    return (point.y < (slope * point.x + intercept));
 }
