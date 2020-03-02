@@ -146,7 +146,6 @@ ban.prototype.update = function () {
 	}
 	if (this.x > 1370) this.x = 1369;	
     if (this.x < 0) this.x = 1;
-	console.log(this.x);
 	//if (this.y > 800) this.y = -230;
 	if (this.airstrikeLoc.x > 1400) this.airstrikeLoc = 1400;
 	if (this.airstrikeLoc.x < 0) this.airstrikeLoc = 0;
