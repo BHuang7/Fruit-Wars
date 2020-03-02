@@ -26,7 +26,7 @@ CollisionCircle.prototype.debugDraw = function(isProjectile) {
 			if (this.sprite.sprite != this.game.spriteEntities[i]) {
 				if(circleToCircleCollision(this.circleCenter, this.game.spriteEntities[i].CollisionCicle.circleCenter, this.newRadii, this.game.spriteEntities[i].CollisionCicle.newRadii) && !this.hpSubraction) {
 					this.sprite.collision = true;
-					this.game.spriteEntities[i].player.hp -= this.sprite.damage;
+					this.game.removeHp(this.sprite.damage, i, this.sprite.x, this.sprite.y);
 					this.hpSubraction = true;
 					break;
 				}

@@ -28,6 +28,7 @@ Timer.prototype.tick = function () {
 }
 
 function GameEngine() {
+	this.time = new Timer();
     this.entities = [];
 	this.spriteEntities = [];
     this.showOutlines = false;
@@ -114,7 +115,7 @@ GameEngine.prototype.draw = function () {
 
 GameEngine.prototype.update = function () {
     var entitiesCount = this.entities.length;
-	
+	this.time.tick();
 	for (var i = 0; i < entitiesCount; i++) {
 		if (entitiesCount != 0) {
 			var entity = this.entities[i];
@@ -154,6 +155,19 @@ GameEngine.prototype.loop = function () {
 	this.click = null;
 	//this.a = null;
 	//this.d = null;
+}
+
+GameEngine.prototype.removeHp = function (damage, index, xPos, yPos) {
+	this.spriteEntities[index].player.hp -= damage;
+	//if (this.tick < .35) {
+		// this.ctx.font = '10px Arial';
+		// this.ctx.textAlign = 'center';
+		// this.ctx. textBaseline = 'middle';
+		// this.ctx.fillStyle = 'red';  // a color name or by using rgb/rgba/hex values
+		// this.ctx.fillText(damage, xPos, yPos - 100); // text and position
+		// this.tick = 0;
+	//}
+	
 }
 
 function Entity(game, x, y) {
