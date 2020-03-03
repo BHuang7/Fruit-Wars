@@ -171,9 +171,10 @@ GameEngine.prototype.loop = function () {
 	//this.d = null;
 }
 
-GameEngine.prototype.removeHp = function (damage, index, xPos, yPos) {
+GameEngine.prototype.removeHp = function (damage, index, xPos, yPos, isExplosion) {
 	this.spriteEntities[index].player.hp -= damage;
-	this.damage = damage;
+	if (isExplosion) this.damage = damage * 2;
+	else this.damage = damage;
 	this.xPos = xPos;
 	this.yPos = yPos;
 	this.damageTaken = true;
