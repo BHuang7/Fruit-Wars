@@ -69,8 +69,8 @@ turnManager.prototype.update = function () {
 		this.exploded = true;
 	}
 	if (this.shot || this.currentCountDown() == "Time Up") {
-		if (this.currentCountDown() == "Time Up") this.fromCountDown = true;
-		this.currentCountDown = createCountDown(this.DEFAULT_TIME_LIMIT);
+	if (this.currentCountDown() == "Time Up") this.fromCountDown = true;
+	this.currentCountDown = createCountDown(this.DEFAULT_TIME_LIMIT);
 		if (this.team1) {
 			this.exploded = false;
 			this.team1 = false;
@@ -96,7 +96,6 @@ turnManager.prototype.update = function () {
 			this.fromCountDown = false;
 		}
 	}
-
 	Entity.prototype.update.call(this);
 }
 

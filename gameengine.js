@@ -39,6 +39,8 @@ function GameEngine() {
     this.surfaceWidth = null;
     this.surfaceHeight = null;
 	this.gravity = 9.81;
+	this.damageTaken = false;
+	this.opacity = 1;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -110,12 +112,24 @@ GameEngine.prototype.draw = function () {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw(this.ctx);
     }
+	if (this.damageTaken) {
+		this.time.tick();
+		this.yPos -= .5;
+		this.ctx.font = '16px Arial';
+		this.ctx.textAlign = 'center';
+		this.ctx.textBaseline = 'middle';
+		this.ctx.fillStyle = 'rgba(207, 0, 15, ' + this.opacity + ')';  // a color name or by using rgb/rgba/hex values
+		this.ctx.fillText("-" + this.damage, this.xPos, this.yPos); // text and position
+		if (this.time.gameTime > 1) {
+			this.damageTaken = false;
+			this.time.gameTime = 0;
+		}
+	}
     this.ctx.restore();
 }
 
 GameEngine.prototype.update = function () {
     var entitiesCount = this.entities.length;
-	this.time.tick();
 	for (var i = 0; i < entitiesCount; i++) {
 		if (entitiesCount != 0) {
 			var entity = this.entities[i];
@@ -158,16 +172,11 @@ GameEngine.prototype.loop = function () {
 }
 
 GameEngine.prototype.removeHp = function (damage, index, xPos, yPos) {
-	this.spriteEntities[index].player.hp -= damage;
-	//if (this.tick < .35) {
-		// this.ctx.font = '10px Arial';
-		// this.ctx.textAlign = 'center';
-		// this.ctx. textBaseline = 'middle';
-		// this.ctx.fillStyle = 'red';  // a color name or by using rgb/rgba/hex values
-		// this.ctx.fillText(damage, xPos, yPos - 100); // text and position
-		// this.tick = 0;
-	//}
-	
+	this.spriteEntities[index].Hp -= damage;
+	this.damage = damage;
+	this.xPos = xPos;
+	this.yPos = yPos;
+	this.damageTaken = true;
 }
 
 function Entity(game, x, y) {
@@ -183,11 +192,11 @@ Entity.prototype.update = function () {
 
 Entity.prototype.draw = function (ctx) {
     if (this.game.showOutlines && this.radius) {
-        this.game.ctx.beginPath();
-        this.game.ctx.strokeStyle = "green";
-        this.game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        this.game.ctx.stroke();
-        this.game.ctx.closePath();
+        this.beginPath();
+        this.strokeStyle = "green";
+        this.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.stroke();
+        this.closePath();
     }
 }
 
