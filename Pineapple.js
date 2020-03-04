@@ -194,7 +194,7 @@ pineapple.prototype.draw = function () {
 		this.manager.turn2.splice(1, 1);
 		this.removeFromWorld = true;
 	}
-
+	drawHealthbar(this.ctx, this.x, this.y - 10, this.width / 2 - 10, 10, this.player.hp, 100, true, 'blue');
     Entity.prototype.draw.call(this);
 }
 

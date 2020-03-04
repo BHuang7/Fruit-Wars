@@ -189,12 +189,11 @@ ban.prototype.draw = function () {
         this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
 	this.selectedWep.drawIMG((this.shooter.angle / 180) * Math.PI);
-
 	if (this.player.hp <= 0){
 		this.manager.turn1.splice(1, 1);
 		this.removeFromWorld = true;
 	}
-
+	drawHealthbar(this.ctx, this.x, this.y - 10, this.width / 2 - 10, 10, this.player.hp, 100, true, 'blue');
     Entity.prototype.draw.call(this);
 }
 
