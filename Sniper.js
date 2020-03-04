@@ -21,7 +21,21 @@ sniper.prototype.drawIMG = function(angle) {
 			this.ctx.drawImage(wepImage, targetCenter.x - .5*(wepImage.width*this.scale), targetCenter.y - .5*(wepImage.height*this.scale), wepImage.width*this.scale, wepImage.height*this.scale);
 		}
 		// Set up current weapon
+		if (this.player.sniperAmmo == 0) {
+			this.ctx.globalAlpha = .5;
+		}
+		this.ctx.beginPath();
+		this.ctx.rect(1180, 21, 184, 70);
+		this.ctx.fillStyle = 'rgb(202, 188, 105)';
+		this.ctx.fill();
+		this.ctx.font = '16px Arial';
+		this.ctx.textAlign = 'center';
+		this.ctx.textBaseline = 'middle';
+		this.ctx.fillStyle = 'black';
+		this.ctx.fillText(this.player.sniperAmmo, 1180 + 170, 23 + 55);
 		this.ctx.drawImage(rotateImage(this.wepImage, 0), 1220, 0, wepImage.width*.8, wepImage.height*.8);
+		this.ctx.globalAlpha = 1;
+		
 	}
 };
 

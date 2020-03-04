@@ -23,8 +23,8 @@ function pineapple(game, terrain,  manager, playerData) {
 	this.gravity = 10;
 	this.oneIntercept = false;
 	this.airstrikeLoc = {x:350, y:250};
-	this.sniperAmmo = Math.random() * (5 - 1) + 1;
-	this.airstrikeAmmo =  Math.random() * (5 - 1) + 1;
+	this.sniperAmmo = Math.floor(Math.random() * (5));
+	this.airstrikeAmmo =  Math.floor(Math.random() * (5));
 	this.weaponName = {name: "grenadeLauncher", ammo: 99999};
 	this.selectedWep = new grenadeLauncher(this);
     Entity.call(this, game, 350, 250);
