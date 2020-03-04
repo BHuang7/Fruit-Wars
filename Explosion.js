@@ -18,7 +18,7 @@ function explosion(game, coordX, coordY, terrain, manager, sprite, damage) {
 	this.collision = false;
 	this.manager.explosionRadius = 22; //placeholder until animation changes size
 	terrain.explosion({x: coordX+10, y: coordY+15}, this.manager.explosionRadius);
-    Entity.call(this, game, coordX - this.width, coordY - this.height + 20);
+    Entity.call(this, game, coordX - this.width, coordY - this.height + 10);
 }
 
 explosion.prototype = new Entity();
