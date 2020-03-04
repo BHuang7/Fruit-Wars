@@ -76,6 +76,7 @@ ban.prototype.update = function () {
  		if(this.game.rightArrow){
 			if(this.ret.type === "airstrike") {
 				this.airstrikeLoc.x += 4;
+				if (this.airstrikeLoc.x > 1400) this.airstrikeLoc.x = 1399;
 			}
 			else {
 				this.shooter.angle += 2;
@@ -84,6 +85,7 @@ ban.prototype.update = function () {
 		if(this.game.leftArrow){
 			if(this.ret.type === "airstrike") {
 				this.airstrikeLoc.x -= 4;
+				if (this.airstrikeLoc.x < 0) this.airstrikeLoc.x = 1;
 			}
 			else {
 				this.shooter.angle -= 2;
@@ -93,6 +95,7 @@ ban.prototype.update = function () {
 		if(this.game.upArrow){
 			if(this.ret.type === "airstrike") {
 				this.airstrikeLoc.y -= 4;
+				if (this.airstrikeLoc.y < 0) this.airstrikeLoc.y = 1;
 			}
 			else {
 				this.shooter.power++;
@@ -101,6 +104,7 @@ ban.prototype.update = function () {
 		}
 		if(this.game.downArrow){
 			if(this.ret.type === "airstrike") {
+				if (this.airstrikeLoc.y > 700) this.airstrikeLoc.y = 699;
 				this.airstrikeLoc.y += 4;
 			}
 			else {
@@ -159,10 +163,6 @@ ban.prototype.update = function () {
 	}
 	if (this.x > 1370) this.x = 1369;	
     if (this.x < 0) this.x = 1;
-	if (this.airstrikeLoc.x > 1400) this.airstrikeLoc = 1400;
-	if (this.airstrikeLoc.x < 0) this.airstrikeLoc = 0;
-	if (this.airstrikeLoc.y > 700) this.airstrikeLoc = 700;
-	if (this.airstrikeLoc.y < 0) this.airstrikeLoc = 0;
 	if (this.shooter.power > 50) this.shooter.power = 50;
 	if (this.shooter.power < 0) this.shooter.power = 0;
 	if (this.shooter.angle > 360) this.shooter.angle -= 360;
