@@ -21,6 +21,9 @@ function ban(game, terrain, manager, playerData) {
 	this.runRight = false;
 	this.runLeft = false;
 	this.gravity = 10;
+	this.sniperAmmo = Math.random() * (5 - 1) + 1;
+	this.airstrikeAmmo =  Math.random() * (5 - 1) + 1;
+	this.weaponName = {name: "grenadeLauncher", ammo: 99999};
 	this.oneIntercept = false;
 	this.selectedWep = new grenadeLauncher(this);
 	this.airstrikeLoc = {x:100, y:250};
@@ -59,12 +62,15 @@ ban.prototype.update = function () {
 	}
 	if (this.player.turn && this.manager.exploded) {
 		if(this.game.numOne) {
+			this.weaponName = {name: 'grenadeLauncher', ammo: 9999};
 			this.selectedWep = new grenadeLauncher(this);
 		}
 		if(this.game.numTwo) {
+			this.weaponName = {name :'sniper', ammo: this.sniperAmmo};
 			this.selectedWep = new sniper(this);
 		}
 		if(this.game.numThree) {
+			this.weaponName = {name: 'airstrike', ammo: this.airstrikeAmmo};
 			this.selectedWep = new airstrike(this);
 		}
  		if(this.game.rightArrow){
@@ -114,7 +120,14 @@ ban.prototype.update = function () {
 		if(this.game.d === false) {
 			this.runRight = false;
 		}
-		if(this.game.space) {
+		if(this.weaponName.ammo > 0 && this.game.space) {
+			if (this.weaponName.name == 'sniper') {
+				this.sniperAmmo -= 1;
+				this.weaponName = {name: 'sniper', ammo: this.sniperAmmo};
+			} else if (this.weaponName.name == 'airstrike') {
+				this.airstrikeAmmo -= 1;
+				this.weaponName = {name: 'airstrike', ammo: this.airstrikeAmmo};
+			}
 			this.manager.shot = true;
 			if(this.ret.type === "arc") {
 				var shooterAngle = (this.shooter.angle / 180) * Math.PI;
