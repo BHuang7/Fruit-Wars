@@ -31,7 +31,7 @@ rocket.prototype.update = function () {
 		this.removeFromWorld = true;	
 	}
 	
-	if (this.y < 0) {
+	if (this.y < -500) {
 		this.manager.explosionOccured = true;
 		this.manager.exploded = true;
 		this.collisionCircle.hpSubtraction = false;
