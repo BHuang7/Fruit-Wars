@@ -25,9 +25,17 @@ CollisionCircle.prototype.debugDraw = function(isProjectile) {
 		for (var i = 0; i < this.game.spriteEntities.length; i++) {
 			if (this.sprite.sprite != this.game.spriteEntities[i]) {
 				if(circleToCircleCollision(this.circleCenter, this.game.spriteEntities[i].CollisionCicle.circleCenter, this.newRadii, this.game.spriteEntities[i].CollisionCicle.newRadii) && !this.hpSubraction) {
-					this.sprite.collision = true;
-					if (this.sprite.isExplosion != undefined) this.game.removeHp(this.sprite.damage, i, centerX, centerY, true);
-					else this.game.removeHp(this.sprite.damage, i, centerX, centerY, false);
+					console.log(this.game.wBullet + " " + this.game.second);
+					if (this.sprite.isBulletExp != undefined) this.game.wBullet = true;
+					if (this.game.wBullet && !this.game.second) {
+						this.game.second = true;
+						this.game.removeHp(this.sprite.damage, i, centerX, centerY, false, true);
+					} else if (this.game.wBullet&& this.game.second) {
+						this.game.second = false;
+						this.game.removeHp(this.sprite.damage, i, centerX, centerY, true, false);
+						this.game.wBullet = false;
+					}
+					else this.game.removeHp(this.sprite.damage, i, centerX, centerY, false, false);
 					this.hpSubraction = true;
 					break;
 				}

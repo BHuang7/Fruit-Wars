@@ -2,6 +2,7 @@ function airRocket(game,startX, manager, terrain, sprite) {
 	this.sprite = sprite;
 	this.manager = manager;
 	this.terrain = terrain;
+	this.isBulletExp = true;
 	this.img = AM.getAsset("./img/rocket/airRocket.png");
 	this.animation = new Animation(this.img, 12, 48, 15, .05, 15, true, 1, false);
 	this.width = this.img.width;

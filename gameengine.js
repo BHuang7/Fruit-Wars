@@ -40,6 +40,8 @@ function GameEngine() {
     this.surfaceHeight = null;
 	this.gravity = 9.81;
 	this.damageTaken = false;
+	this.second = false;
+	this.wBullet = false;
 	this.opacity = 1;
 }
 
@@ -171,13 +173,13 @@ GameEngine.prototype.loop = function () {
 	//this.d = null;
 }
 
-GameEngine.prototype.removeHp = function (damage, index, xPos, yPos, isExplosion) {
+GameEngine.prototype.removeHp = function (damage, index, xPos, yPos, isExplosion, isBullet) {
 	this.spriteEntities[index].player.hp -= damage;
 	if (isExplosion) this.damage = damage * 2;
 	else this.damage = damage;
 	this.xPos = xPos;
 	this.yPos = yPos;
-	this.damageTaken = true;
+	if (!isBullet) this.damageTaken = true;
 }
 
 function Entity(game, x, y) {

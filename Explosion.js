@@ -2,7 +2,6 @@
 function explosion(game, coordX, coordY, terrain, manager, sprite, damage) {
 	this.sprite = sprite;
 	this.game = game;
-	this.isExplosion = true;
 	this.manager = manager;
 	this.damage = damage;
 	this.img = AM.getAsset("./img/explosion/explosion.png")

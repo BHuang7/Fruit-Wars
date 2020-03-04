@@ -1,6 +1,7 @@
 function rocket(game,startX, startY, velocityX, velocityY, manager, terrain, sprite) {	
 	this.sprite = sprite;
 	this.terrain = terrain;
+	this.isBulletExp = true;
 	this.img = AM.getAsset("./img/rocket/projectile1.png");
 	this.animation = new Animation(this.img, 32, 32, 9, .05, 9, true, 1, false);
 	this.width = this.img.width;
