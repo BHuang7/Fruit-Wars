@@ -1,6 +1,7 @@
 function ban(game, terrain, manager, playerData) {
 	this.shooter = {angle: 15, power: 25};
 	this.ret = new reticle(this, game.ctx);
+	this.healthBarColor = 'RoyalBlue';
 	this.game = game;
 	this.manager = manager;
 	this.player = playerData;
@@ -193,7 +194,7 @@ ban.prototype.draw = function () {
 		this.manager.turn1.splice(1, 1);
 		this.removeFromWorld = true;
 	}
-	drawHealthbar(this.ctx, this.x, this.y - 10, this.width / 2 - 10, 10, this.player.hp, 100, true, 'blue');
+	drawHealthbar(this.ctx, this.x, this.y - 10, this.width / 2 - 10, 10, this.player.hp, 100, true, this.healthBarColor);
     Entity.prototype.draw.call(this);
 }
 

@@ -2,6 +2,7 @@ function lime(game, terrain, manager, playerData) {
 	this.shooter = {angle: 15, power: 25};
 	this.ret = new reticle(this, game.ctx);
 	this.game = game;
+	this.healthBarColor = 'Crimson';
 	this.manager = manager;
 	this.player = playerData;
 	this.scalingFactor = .4;
@@ -194,7 +195,7 @@ lime.prototype.draw = function () {
 		this.manager.turn1.splice(0, 1);
 		this.removeFromWorld = true;
 	}
-	drawHealthbar(this.ctx, this.x, this.y, this.width / 2 - 10, 10, this.player.hp, 100, true, 'red');
+	drawHealthbar(this.ctx, this.x, this.y, this.width / 2 - 10, 10, this.player.hp, 100, true, this.healthBarColor);
     Entity.prototype.draw.call(this);
 }
 
