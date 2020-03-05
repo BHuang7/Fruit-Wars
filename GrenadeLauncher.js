@@ -26,11 +26,11 @@ grenadeLauncher.prototype.drawIMG = function(angle) {
 		this.ctx.fillStyle = 'rgb(202, 188, 105)';
 		this.ctx.fill();
 		this.ctx.font = '16px Arial';
-		this.ctx.textAlign = 'center';
-		this.ctx.textBaseline = 'middle';
+		//this.ctx.textAlign = 'center';
+		//this.ctx.textBaseline = 'middle';
 		this.ctx.fillStyle = 'black';
 		this.ctx.fillText('∞', 1180 + 170, 23 + 55);
-		this.ctx.drawImage(rotateImage(this.wepImage, 0), 1220, 0, wepImage.width*.8, wepImage.height*.8);
+		this.ctx.drawImage(this.wepImage, 1220, 0, wepImage.width*.8, wepImage.height*.8);
 	}
 };
 

@@ -189,7 +189,9 @@ lime.prototype.draw = function () {
 		this.animationRunningRight.elapsedTime = 0;
         this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
+	
 	this.selectedWep.drawIMG((this.shooter.angle / 180) * Math.PI);
+	
 
 	if (this.player.hp <= 0){
 		this.manager.turn1.splice(0, 1);

@@ -148,8 +148,8 @@ function drawHealthbar(canvas, x, y, width, height, health, max_health, numberVi
 		canvas.fillStyle = teamColor;
 		canvas.fillRect(x + 1, y + 1, (health / max_health) * (width - 2), height - 2);
 		canvas.font = "10px Calibri";
-		canvas.fillStyle = 'black';
-		canvas.fillText(health, x + width / 2, y + height / 2);
+		canvas.fillStyle = 'white';
+		canvas.fillText(health, x + width / 2 - 5, y + height / 2 + 3);
 	} else {
 		canvas.fillStyle = '#000000';
 		canvas.fillRect(x, y, width, height);
