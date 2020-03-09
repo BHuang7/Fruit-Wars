@@ -84,6 +84,12 @@ GameEngine.prototype.startInput = function () {
 		else if (e.which === 49) that.numOne = true;
 		else if (e.which === 50) that.numTwo = true;
 		else if (e.which === 51) that.numThree = true;
+		else if (e.which === 52) that.numFour = true;
+		else if (e.which === 53) that.numFive = true;
+		else if (e.which === 54) that.numSix = true;
+		else if (e.which === 55) that.numSeven = true;
+		else if (e.which === 56) that.numEight = true;
+		else if (e.which === 57) that.numNine = true;
         e.preventDefault();
     }, false);
 	this.ctx.canvas.addEventListener("keyup", function (e) {
@@ -96,6 +102,12 @@ GameEngine.prototype.startInput = function () {
 		else if (e.which === 49) that.numOne = false;
 		else if (e.which === 50) that.numTwo = false;
 		else if (e.which === 51) that.numThree = false;
+		else if (e.which === 52) that.numFour = false;
+		else if (e.which === 53) that.numFive = false;
+		else if (e.which === 54) that.numSix = false;
+		else if (e.which === 55) that.numSeven = false;
+		else if (e.which === 56) that.numEight = false;
+		else if (e.which === 57) that.numNine = false;
         e.preventDefault();
     }, false);
 

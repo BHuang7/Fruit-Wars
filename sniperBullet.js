@@ -44,13 +44,12 @@ sniperBullet.prototype.update = function () {
 	}
 	this.x += this.game.clockTick * this.velo.x;
 	this.y += this.game.clockTick * this.velo.y;
-	console.log(this.x + " " + this.y);
     Entity.prototype.update.call(this);
 }
 
 sniperBullet.prototype.draw = function () {
 		this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-		this.collisionCircle.debugDraw(true);	
+		this.collisionCircle.debugDraw(true);
 		Entity.prototype.draw.call(this);
 }
 

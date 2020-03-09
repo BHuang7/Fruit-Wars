@@ -25,6 +25,7 @@ AM.queueDownload("./img/weapon/sniper.png");
 AM.queueDownload("./img/weapon/grenadeLauncherB.png");
 AM.queueDownload("./img/weapon/sniperB.png");
 AM.queueDownload("./img/weapon/airStrike.png");
+AM.queueDownload("./img/weapon/gravityGun.png");
 AM.queueDownload("./img/rocket/sniperBullet.png");
 AM.queueDownload("./img/rocket/airRocket.png");
 
