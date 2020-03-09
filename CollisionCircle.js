@@ -25,7 +25,6 @@ CollisionCircle.prototype.debugDraw = function(isProjectile) {
 		for (var i = 0; i < this.game.spriteEntities.length; i++) {
 			if (this.sprite.sprite != this.game.spriteEntities[i]) {
 				if(circleToCircleCollision(this.circleCenter, this.game.spriteEntities[i].CollisionCicle.circleCenter, this.newRadii, this.game.spriteEntities[i].CollisionCicle.newRadii) && !this.hpSubraction) {
-					console.log(this.game.wBullet + " " + this.game.second);
 					if (this.sprite.isBulletExp != undefined) this.game.wBullet = true;
 					if (this.game.wBullet && !this.game.second) {
 						this.game.second = true;
