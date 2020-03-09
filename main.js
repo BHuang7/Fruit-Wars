@@ -28,6 +28,7 @@ AM.queueDownload("./img/weapon/airStrike.png");
 AM.queueDownload("./img/weapon/gravityGun.png");
 AM.queueDownload("./img/rocket/sniperBullet.png");
 AM.queueDownload("./img/rocket/airRocket.png");
+AM.queueDownload("./img/weapon/teleporter.png");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");

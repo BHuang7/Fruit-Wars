@@ -26,6 +26,7 @@ function lime(game, terrain, manager, playerData) {
 	this.sniperAmmo = Math.floor(Math.random() * (5));
 	this.airstrikeAmmo =  Math.floor(Math.random() * (5));
 	this.gravityGunAmmo =  Math.floor(Math.random() * (3));
+	this.teleporterAmmo = 1;
 	this.weaponName = {name: "grenadeLauncher", ammo: 99999};
 	this.selectedWep = new grenadeLauncher(this);
 	this.airstrikeLoc = {x:800, y:250};
@@ -78,6 +79,10 @@ lime.prototype.update = function () {
 		if(this.game.numFour) {
 			this.weaponName = {name: 'gravityGun', ammo: this.gravityGunAmmo};
 			this.selectedWep = new gravityGun(this);
+		}
+		if (this.game.numFive) {
+			this.weaponName = {name: 'teleporter', ammo: this.teleporterAmmo};
+			this.selectedWep = new teleporter(this);
 		}
  		if(this.game.rightArrow){
 			if(this.ret.type === "airstrike") {
@@ -141,6 +146,9 @@ lime.prototype.update = function () {
 			else if (this.weaponName.name == 'gravityGun') {
 				this.gravityGunAmmo -= 1;
 				this.weaponName = {name: 'gravityGun', ammo: this.gravityGunAmmo};
+			} else if (this.weaponName.name == 'teleporter') {
+				this.teleporterAmmo -= 1;
+				this.weaponName = {name: 'teleporter', ammo: this.teleporterAmmo};
 			}
 			this.manager.shot = true;
 			if(this.ret.type === "arc") {
