@@ -2,6 +2,7 @@ function coconut(game, terrain,  manager, playerData) {
 	this.shooter = {angle: 15, power: 25};
 	this.ret = new reticle(this, game.ctx);
 	this.game = game;
+	this.healthBarColor = 'Crimson';
 	this.manager = manager;
 	this.player = playerData;
 	this.scalingFactor = .4;
@@ -21,6 +22,9 @@ function coconut(game, terrain,  manager, playerData) {
 	this.runRight = false;
 	this.runLeft = false;
 	this.gravity = 10;
+	this.sniperAmmo = Math.floor(Math.random() * (5));
+	this.airstrikeAmmo =  Math.floor(Math.random() * (5));
+	this.weaponName = {name: "grenadeLauncher", ammo: 99999};
 	this.oneIntercept = false;
 	this.selectedWep = new grenadeLauncher(this);
 	this.airstrikeLoc = {x:950, y:250};
@@ -59,17 +63,21 @@ coconut.prototype.update = function () {
 	}
 	if (this.player.turn && this.manager.exploded) {
 		if(this.game.numOne) {
+			this.weaponName = {name: 'grenadeLauncher', ammo: 9999};
 			this.selectedWep = new grenadeLauncher(this);
 		}
 		if(this.game.numTwo) {
+			this.weaponName = {name :'sniper', ammo: this.sniperAmmo};
 			this.selectedWep = new sniper(this);
 		}
 		if(this.game.numThree) {
+			this.weaponName = {name: 'airstrike', ammo: this.airstrikeAmmo};
 			this.selectedWep = new airstrike(this);
 		}
  		if(this.game.rightArrow){
 			if(this.ret.type === "airstrike") {
 				this.airstrikeLoc.x += 4;
+				if (this.airstrikeLoc.x > 1400) this.airstrikeLoc.x = 1399;
 			}
 			else {
 				this.shooter.angle += 2;
@@ -78,6 +86,7 @@ coconut.prototype.update = function () {
 		if(this.game.leftArrow){
 			if(this.ret.type === "airstrike") {
 				this.airstrikeLoc.x -= 4;
+				if (this.airstrikeLoc.x < 0) this.airstrikeLoc.x = 1;
 			}
 			else {
 				this.shooter.angle -= 2;
@@ -87,6 +96,7 @@ coconut.prototype.update = function () {
 		if(this.game.upArrow){
 			if(this.ret.type === "airstrike") {
 				this.airstrikeLoc.y -= 4;
+				if (this.airstrikeLoc.y < 0) this.airstrikeLoc.y = 1;
 			}
 			else {
 				this.shooter.power++;
@@ -95,6 +105,7 @@ coconut.prototype.update = function () {
 		}
 		if(this.game.downArrow){
 			if(this.ret.type === "airstrike") {
+				if (this.airstrikeLoc.y > 700) this.airstrikeLoc.y = 699;
 				this.airstrikeLoc.y += 4;
 			}
 			else {
@@ -114,7 +125,14 @@ coconut.prototype.update = function () {
 		if(this.game.d === false) {
 			this.runRight = false;
 		}
-		if(this.game.space) {
+		if(this.weaponName.ammo > 0 && this.game.space) {
+			if (this.weaponName.name == 'sniper') {
+				this.sniperAmmo -= 1;
+				this.weaponName = {name: 'sniper', ammo: this.sniperAmmo};
+			} else if (this.weaponName.name == 'airstrike') {
+				this.airstrikeAmmo -= 1;
+				this.weaponName = {name: 'airstrike', ammo: this.airstrikeAmmo};
+			}
 			this.manager.shot = true;
 			if(this.ret.type === "arc") {
 				var shooterAngle = (this.shooter.angle / 180) * Math.PI;
@@ -146,10 +164,6 @@ coconut.prototype.update = function () {
 	}
 	if (this.x > 1370) this.x = 1369;	
     if (this.x < 0) this.x = 1;
-	if (this.airstrikeLoc.x > 1400) this.airstrikeLoc = 1400;
-	if (this.airstrikeLoc.x < 0) this.airstrikeLoc = 0;
-	if (this.airstrikeLoc.y > 700) this.airstrikeLoc = 700;
-	if (this.airstrikeLoc.y < 0) this.airstrikeLoc = 0;
 	if (this.shooter.power > 50) this.shooter.power = 50;
 	if (this.shooter.power < 0) this.shooter.power = 0;
 	if (this.shooter.angle > 360) this.shooter.angle -= 360;
@@ -175,12 +189,15 @@ coconut.prototype.draw = function () {
 		this.animationRunningRight.elapsedTime = 0;
         this.animationIdle.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
+	
 	this.selectedWep.drawIMG((this.shooter.angle / 180) * Math.PI);
+	
 
 	if (this.player.hp <= 0){
 		this.manager.turn2.splice(0, 1);
 		this.removeFromWorld = true;
 	}
+	drawHealthbar(this.ctx, this.x, this.y, this.width / 2 - 10, 10, this.player.hp, 100, true, this.healthBarColor);
     Entity.prototype.draw.call(this);
 }
 

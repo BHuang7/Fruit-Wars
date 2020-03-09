@@ -75,6 +75,13 @@ Terrain.prototype.update = function () {
 //   }
 }
 
+Terrain.prototype.AddDirPoints = function() {
+    for(let i = 0; i < this.lines.length; i++) {
+        var cur = this.lines[i];
+        cur.dirPoint = new Point(this.game, (cur.p2.x + cur.p1.x)/2, (cur.p2.y + cur.p1.y)/2 - 10);
+    }
+}
+
 Terrain.prototype.draw = function (ctx) {
     let pattern = ctx.createPattern(this.sprite, "repeat");
     ctx.fillStyle = pattern;
@@ -85,6 +92,14 @@ Terrain.prototype.draw = function (ctx) {
         ctx.lineTo(this.coordinates[i].x, this.coordinates[i].y);
     }
     ctx.fill();
+
+    //draw dirPoints
+//     ctx.fillStyle = "green";
+//     for(let i = 0; i < this.lines.length; i++) {
+//         ctx.beginPath();
+//         ctx.arc(this.lines[i].dirPoint.x, this.lines[i].dirPoint.y, 5, 0, Math.PI * 2, true);
+//         ctx.fill();
+//     }
 }
 
 Terrain.prototype.explosion = function (p, radius) {
@@ -155,17 +170,34 @@ Terrain.prototype.explosion = function (p, radius) {
 }
 
 Terrain.prototype.updateLines = function() {
-    //console.log("printing the lines");
+    console.log("UPDATING LINES");
     let oldPoint = this.coordinates[0];
     let lines = [];
     for(let i = 1; i < this.coordinates.length; i++) {
         let newPoint = this.coordinates[i];
         if (typeof(newPoint) === "undefined") {
-            // console.log("point is undefined")
+            console.log("point is undefined")
         }
-        lines.push(new LineSegment(this.game, oldPoint, newPoint));
+        let newLine = new LineSegment(this.game, oldPoint, newPoint);
+        if(typeof newLine !== 'undefined') {
+                if (newLine.p1.x > newLine.p2.x) {
+                    if(newLine.p1.y < newLine.p2.y) {
+                    newLine.dirPoint = new Point(this.game, (newLine.p2.x + newLine.p1.x)/2 + 10, (newLine.p2.y + newLine.p1.y)/2 + 10);
+                    } else {
+                        newLine.dirPoint = new Point(this.game, (newLine.p2.x + newLine.p1.x)/2 - 10, (newLine.p2.y + newLine.p1.y)/2 + 10);
+                    }
+                } else {
+                    if(newLine.p1.y < newLine.p2.y) {
+                        newLine.dirPoint = new Point(this.game, (newLine.p2.x + newLine.p1.x)/2 + 10, (newLine.p2.y + newLine.p1.y)/2 - 10);
+                        } else {
+                            newLine.dirPoint = new Point(this.game, (newLine.p2.x + newLine.p1.x)/2 - 10, (newLine.p2.y + newLine.p1.y)/2 - 10);
+                        }
+                }
+            }
+        lines.push(newLine);
         oldPoint = newPoint;
-    }
+        }
+        
     return lines;
 }
 
