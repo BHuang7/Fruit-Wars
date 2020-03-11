@@ -2,7 +2,6 @@ function pineapple(game, terrain,  manager, playerData) {
 	this.shooter = {angle: 15, power: 25};
 	this.ret = new reticle(this, game.ctx);
 	this.game = game;
-	this.healthBarColor = 'RoyalBlue';
 	this.manager = manager;
 	this.player = playerData;
 	this.scalingFactor = .4;
@@ -212,7 +211,7 @@ pineapple.prototype.draw = function () {
 		this.manager.turn2.splice(1, 1);
 		this.removeFromWorld = true;
 	}
-	drawHealthbar(this.ctx, this.x, this.y - 10, this.width / 2 - 10, 10, this.player.hp, 100, true, this.healthBarColor);
+	drawHealthbar(this.ctx, this.x, this.y - 10, this.width / 2 - 10, 10, this.player.hp, 100, true, this.player.healthColor);
     Entity.prototype.draw.call(this);
 }
 

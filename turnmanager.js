@@ -1,11 +1,13 @@
 // turnmanager.js 
 // Manages turns and Hud
 
-function turnManager(gameEngine) {
-	this.playerOne = { player: 1, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/explosion/banIdle.png"), 128, 128, 8, .1, 8, true, 0.51, false) };
-	this.playerTwo = { player: 2, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/Lime/limeIdle.png"), 128, 128, 8, .1, 8, true, .58, false) };
-	this.playerThree = { player: 3, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/Pineapple/pineappleIdle.png"), 128, 128, 8, .1, 8, true, .52, false) };
-	this.playerFour = { player: 4, hp: 100, turn: false, icon: new Animation(AM.getAsset("./img/Coconut/coconutIdle.png"), 128, 128, 8, .1, 8, true, 0.58, false) };
+function turnManager(gameEngine, ctx, theTeam1, theTeam2) {
+	this.playerOne = { player: 1, hp: 10, turn: false, icon: new Animation(AM.getAsset("./img/explosion/banIdle.png"), 128, 128, 8, .1, 8, true, 0.51, false) };
+    this.playerTwo = { player: 2, hp: 10, turn: false, icon: new Animation(AM.getAsset("./img/Lime/limeIdle.png"), 128, 128, 8, .1, 8, true, .58, false) };
+    this.playerThree = { player: 3, hp: 10, turn: false, icon: new Animation(AM.getAsset("./img/Pineapple/pineappleIdle.png"), 128, 128, 8, .1, 8, true, .52, false) };
+    this.playerFour = { player: 4, hp: 10, turn: false, icon: new Animation(AM.getAsset("./img/Coconut/coconutIdle.png"), 128, 128, 8, .1, 8, true, 0.58, false) };
+	var thePlayers = [this.playerOne, this.playerTwo, this.playerThree, this.playerFour];
+	
 	this.starting = true;
 	this.shot = false;
 	this.exploded = false;
@@ -30,13 +32,26 @@ function turnManager(gameEngine) {
 	//var ground = new Terrain(gameEngine);
 	//gameEngine.addEntity(new Background(gameEngine));
 	gameEngine.addEntity(ground, false);
-	gameEngine.addEntity(new ban(gameEngine, ground, this, this.playerOne), true);
-	gameEngine.addEntity(new lime(gameEngine, ground, this, this.playerTwo), true);
-	gameEngine.addEntity(new pineapple(gameEngine, ground, this, this.playerThree), true);
-	gameEngine.addEntity(new coconut(gameEngine, ground, this, this.playerFour), true);
-	this.turn1 = [this.playerThree, this.playerOne];
+	gameEngine.addEntity(new ban(gameEngine, ground, this, thePlayers[0]), true);
+	gameEngine.addEntity(new lime(gameEngine, ground, this, thePlayers[1]), true);
+	gameEngine.addEntity(new pineapple(gameEngine, ground, this, thePlayers[2]), true);
+	gameEngine.addEntity(new coconut(gameEngine, ground, this, thePlayers[3]), true);
+
+	this.turn1 = [];
+	this.turn2 = [];
+	for (i = 0; i < theTeam1.length; i++) {
+		var storingValue = thePlayers[theTeam1[i]];
+		storingValue.healthColor = 'Crimson';
+		this.turn1.push(storingValue);
+	}
+
+	for (i = 0; i < theTeam2.length; i++) {
+		var storingValue = thePlayers[theTeam2[i]];
+		storingValue.healthColor = 'RoyalBlue'
+		this.turn2.push(storingValue);
+	}
+
 	this.counterOne = 0;
-	this.turn2 = [this.playerFour, this.playerTwo];
 	this.counterTwo = 0;
 	this.team1 = false;
 	this.team2 = false;
@@ -45,11 +60,15 @@ function turnManager(gameEngine) {
 	this.hudBackground = AM.getAsset("./img/hud/hud.png");
 
 	// Current character: 
-	this.currentPlayer = this.playerOne;
+	this.currentPlayer = this.turn1[1];
 
+	console.log("Team 1:");
+	console.log(this.turn1);
+	console.log("Team 2:");
+	console.log(this.turn2);
 
 	// Default time per turn in ms
-	this.DEFAULT_TIME_LIMIT = 15000;
+	this.DEFAULT_TIME_LIMIT = 16000;
 	this.currentCountDown = createCountDown(this.DEFAULT_TIME_LIMIT);
 
 	Entity.call(this, gameEngine, 0, 0);

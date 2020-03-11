@@ -1,10 +1,16 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
+<!-- <iframe src="./img/explosion/Island_Wave.mp3"  id="audio" style="display: none"></iframe> -->
 
 <head>
+	<iframe width="0" height="0" src="./img/explosion/Island_Wave.mp3" frameborder="0" allowfullscreen></iframe>
+	<!-- <audio controls autoplay>
+		<source src="img/explosion/Island_Wave.mp3" type="audio/mpeg">
+	</audio> -->
+	<!-- if you are reading this it is not working -->
 	<meta charset="utf-8">
-	<title>Game Project Shell</title>
+	<link rel="icon" href="./img/explosion/bananaRunning (1).png">
+	<title>Fruit Wars</title>
 
 	<style>
 		* {
@@ -26,48 +32,114 @@
 			display: table;
 			clear: both;
 		}
+
+		.flexbox {
+			height: 500px;
+			width: 500px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+
+		.flexbox div {
+			width: 45%;
+			background: rgb(252, 252, 160);
+			height: 45%;
+			border: 10px solid rgb(202, 188, 105);
+			border-radius: 30px;
+		}
+
+		.flexbox div:hover {
+
+			background: rgb(255, 255, 207);
+			cursor: pointer;
+
+
+
+		}
+
+		.Aligner {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.Aligner-item {
+			max-width: 50%;
+		}
 	</style>
 
-	<script type="text/javascript" src="./assetmanager.js">		</script>
-	<script type="text/javascript" src="./Utils.js">			</script>
-	<script type="text/javascript" src="./Reticle.js">			</script>
-	<script type="text/javascript" src="./LineSegment.js">		</script>
-	<script type="text/javascript" src="./gameengine.js">		</script>
-	<script type="text/javascript" src="./CollisionCircle.js">	</script>
-	<script type="text/javascript" src="./turnmanager.js">	 	</script>
-	<script type="text/javascript" src="./Ban.js">				</script>
-	<script type="text/javascript" src="./Lime.js">				</script>
-	<script type="text/javascript" src="./Pineapple.js">		</script>
-	<script type="text/javascript" src="./Coconut.js">			</script>
-	<script type="text/javascript" src="./GrenadeLauncher.js">	</script>
-	<script type="text/javascript" src="./Sniper.js">			</script>
-	<script type="text/javascript" src="./AirStrike.js">		</script>
-	<script type="text/javascript" src="./gravityGun.js">		</script>
-	<script type="text/javascript" src="./teleporter.js">		</script>
-	<script type="text/javascript" src="./sniperBullet.js">		</script>
-	<script type="text/javascript" src="./airRocket.js">		</script>
-	<script type="text/javascript" src="./Explosion.js">		</script>
-	<script type="text/javascript" src="./background.js">		</script>
-	<script type="text/javascript" src="./Animators.js">		</script>
-	<script type="text/javascript" src="./rocket.js">			</script>
-	<script type="text/javascript" src="./Terrain.js">			</script>
-	<script type="text/javascript" src="./main.js">				</script>
+	<script type="text/javascript" src="./assetmanager.js"> </script>
+	<script type="text/javascript" src="./Utils.js"> </script>
+	<script type="text/javascript" src="./Reticle.js"> </script>
+	<script type="text/javascript" src="./LineSegment.js"> </script>
+	<script type="text/javascript" src="./gameengine.js"> </script>
+	<script type="text/javascript" src="./CollisionCircle.js"> </script>
+	<script type="text/javascript" src="./turnmanager.js"> </script>
+	<script type="text/javascript" src="./Ban.js"> </script>
+	<script type="text/javascript" src="./Lime.js"> </script>
+	<script type="text/javascript" src="./Pineapple.js"> </script>
+	<script type="text/javascript" src="./Coconut.js"> </script>
+	<script type="text/javascript" src="./GrenadeLauncher.js"> </script>
+	<script type="text/javascript" src="./Sniper.js"> </script>
+	<script type="text/javascript" src="./AirStrike.js"> </script>
+	<script type="text/javascript" src="./gravityGun.js"> </script>
+	<script type="text/javascript" src="./teleporter.js"> </script>
+	<script type="text/javascript" src="./sniperBullet.js"> </script>
+	<script type="text/javascript" src="./airRocket.js"> </script>
+	<script type="text/javascript" src="./Explosion.js"> </script>
+	<script type="text/javascript" src="./background.js"> </script>
+	<script type="text/javascript" src="./Animators.js"> </script>
+	<script type="text/javascript" src="./rocket.js"> </script>
+	<script type="text/javascript" src="./Terrain.js"> </script>
+	<script type="text/javascript" src="./main.js"> </script>
 </head>
 
 <body>
-	<div style="text-align:center;">
+	<div id="mainManu"
+		style="margin: 0 auto;width: 1400px; height:700px; background-image:url(https://media.giphy.com/media/YO0pdMzhpVkdy/giphy.gif); background-size:100%;">
+		<!-- <img src="" alt="Flowers in Chania"> -->
+		<h1 style="text-align:center; color: black; padding-top: 30px;">Choose your character!</h1>
+		<h2 id="team1Text" style="text-align:center; color: black;padding-bottom: 15px">Player 1, select your two
+			characters</h2>
+		<h2 id="team2Text" style="text-align:center; display: none;color: black; padding-bottom: 15px">Player 2, select
+			your two characters</h2>
+
+		<div class="Aligner">
+			<div class="Aligner-item">
+				<div class="flexbox" style="text-align:center">
+					<div onclick="playerSelected('0')" id="0">
+						<img src="./img/explosion/bananaRunning (1).png" width="208">
+					</div>
+					<div onclick="playerSelected('1')" id="1">
+						<img src="./img/Lime/limeIdle1.png" width="208">
+					</div>
+					<div onclick="playerSelected('2')" id="2" style="margin-bottom: 20px;">
+						<img src="./img/Pineapple/pineappleIdle(1).png" width="209">
+					</div>
+					<div onclick="playerSelected('3')" id="3">
+						<img src="./img/Coconut/coconutIdle1.png" width="208">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="gameMenu" style="text-align:center; display:none;">
 		<canvas id="gameWorld" tabindex="1" width="1400" height="700"
 			style="border: 1px solid brown; background: lightskyblue"></canvas>
 	</div>
 	<div
-		style="margin: 0 auto; width: 1400px; height: 230px; text-align: center; border: 15px solid rgba(255,205,33,0.54); border-radius: 40px;">
+		style="margin: 0 auto; width: 1400px; height: 230px; text-align: center; background-color:rgb(252,252,160);border: 15px solid rgb(202,188,105);">
 
 		<h1>Welcome to Fruit Wars</h1>
 		<div class="row">
 			<div class="column">
-				<div><b>Teams</b></div>
-				<div>Team 1: Banana & Pineapple</div>
-				<div>Team 2: Lime & Coconut</div>
+				<div><b>Objective</b></div>
+				<div>Destroy the enemy players.</div>
+				<div>team standing, wins.</div>
 			</div>
 			<div class="column">
 				<div><b>Movement</b> </div>
@@ -79,6 +151,7 @@
 				<div>up arrow: Increase Power</div>
 				<div>down arrow: Decrease Power</div>
 				<div>right arrow & left arrow: Aim</div>
+				<div>space: Shoot</div>
 			</div>
 			<div class="column">
 				<div><b>Weapon Selection</b></div>
